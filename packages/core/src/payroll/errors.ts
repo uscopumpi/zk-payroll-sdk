@@ -85,7 +85,12 @@ export class PayrollTimezoneBoundaryError extends Error {
     startTime?: number;
     endTime?: number;
     offsetMinutes?: number;
-    reason?: "invalid_timezone" | "invalid_window" | "ambiguous_local_time" | "nonexistent_local_time" | "boundary_crossing";
+    reason?:
+      | "invalid_timezone"
+      | "invalid_window"
+      | "ambiguous_local_time"
+      | "nonexistent_local_time"
+      | "boundary_crossing";
   };
 
   constructor(
@@ -196,9 +201,7 @@ export class TreasuryReserveReleaseError extends Error {
   }
 }
 
-export type TreasuryReserveReleaseReason =
-  | "INVALID_AMOUNT"
-  | "INSUFFICIENT_RESERVE";
+export type TreasuryReserveReleaseReason = "INVALID_AMOUNT" | "INSUFFICIENT_RESERVE";
 
 export interface TreasuryReserveReleaseParamsBase {
   /** Amount to release from the treasury reserve, in the smallest unit. */
@@ -267,11 +270,9 @@ export function assertTreasuryReserveReleaseValid(
   context: ErrorContext = {}
 ): void {
   if (!params || typeof params !== "object") {
-    throw new TreasuryReserveReleaseError(
-      "Treasury reserve release params are required",
-      context,
-      { reason: "INVALID_AMOUNT" }
-    );
+    throw new TreasuryReserveReleaseError("Treasury reserve release params are required", context, {
+      reason: "INVALID_AMOUNT",
+    });
   }
 
   const batchId = params.batchId;

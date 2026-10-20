@@ -103,8 +103,10 @@ export interface SalaryPolicyBoundViolation {
  * Error thrown when the impact analysis input is invalid.
  */
 export class SalaryPolicyImpactValidationError extends Error {
-  constructor(message: string, public readonly details?: Record<string, unknown>)
-  {
+  constructor(
+    message: string,
+    public readonly details?: Record<string, unknown>
+  ) {
     super(message);
     this.name = "SalaryPolicyImpactValidationError";
   }
@@ -114,7 +116,7 @@ function assertVialeId(id: unknown, index: number): asserts id is string {
   if (typeof id !== "string" || id.trim().length === 0) {
     throw new SalaryPolicyImpactValidationError(
       `Salary policy change at index ${index} is missing a valid recipientId.`,
-      { index },
+      { index }
     );
   }
 }
@@ -122,39 +124,36 @@ function assertVialeId(id: unknown, index: number): asserts id is string {
 function assertNonNegativeAmount(
   value: unknown,
   label: string,
-  index: number,
+  index: number
 ): asserts value is bigint {
   if (typeof value !== "bigint") {
     throw new SalaryPolicyImpactValidationError(
       `Salary policy change at index ${index} has a non-bigint ${label}.`,
-      { index, label },
+      { index, label }
     );
   }
   if (value < 0n) {
     throw new SalaryPolicyImpactValidationError(
       `Ray policy change at index ${index} has a negative ${label}.`,
-      { index, label },
+      { index, label }
     );
   }
 }
 
-function assertOptionalAmount(
-  value: unknown,
-  label: string,
-): asserts value is bigint | undefined {
+function assertOptionalAmount(value: unknown, label: string): asserts value is bigint | undefined {
   if (value === undefined) {
     return;
   }
   if (typeof value !== "bigint") {
     throw new SalaryPolicyImpactValidationError(
       `Salary policy impact option "${label}" must be a bigint when provided.`,
-      { label },
+      { label }
     );
   }
   if (value < 0n) {
     throw new SalaryPolicyImpactValidationError(
       `Salary policy impact option "${label}" must not be negative.`,
-      { label },
+      { label }
     );
   }
 }
@@ -168,11 +167,11 @@ function assertOptionalAmount(
  */
 export function analyzeSalaryPolicyImpact(
   changes: readonly SalaryPolicyChange[],
-  options: SalaryPolicyImpactOptions = {},
+  options: SalaryPolicyImpactOptions = {}
 ): SalaryPolicyImpactReport {
   if (!Array.isArray(changes)) {
     throw new SalaryPolicyImpactValidationError(
-      "Salary policy changes must be provided as an array.",
+      "Salary policy changes must be provided as an array."
     );
   }
 
@@ -187,7 +186,7 @@ export function analyzeSalaryPolicyImpact(
   ) {
     throw new SalaryPolicyImpactValidationError(
       'Salary policy impact option "minimumAmount" must not exceed "maximumAmount".',
-      { minimumAmount: options.minimumAmount, maximumAmount: options.maximumAmount },
+      { minimumAmount: options.minimumAmount, maximumAmount: options.maximumAmount }
     );
   }
 
@@ -207,7 +206,7 @@ export function analyzeSalaryPolicyImpact(
     if (change === null || typeof change !== "object") {
       throw new SalaryPolicyImpactValidationError(
         `Salary policy change at index ${index} must be an object.`,
-        { index },
+        { index }
       );
     }
 
@@ -218,7 +217,7 @@ export function analyzeSalaryPolicyImpact(
     if (seen.has(change.recipientId)) {
       throw new SalaryPolicyImpactValidationError(
         `Duplicate salary policy change for recipient "${change.recipientId}".`,
-        { recipientId: change.recipientId, index },
+        { recipientId: change.recipientId, index }
       );
     }
     seen.add(change.recipientId);
@@ -294,20 +293,17 @@ export function analyzeSalaryPolicyImpact(
  * total does not exceed available funds. Throws a `SalaryPolicyImpactValidationError`
  * with actionable details otherwise.
  */
-export function assertSalaryPolicyImpactIsApplicable(
-  report: SalaryPolicyImpactReport,
-): void {
+export function assertSalaryPolicyImpactIsApplicable(report: SalaryPolicyImpactReport): void {
   if (!report.isValid) {
     throw new SalaryPolicyImpactValidationError(
       "Salary policy change violates configured amount bounds.",
-      { boundViolations: report.boundViolations },
+      { boundViolations: report.boundViolations }
     );
   }
   if (report.exceedsAvailableFunds) {
-    throw new SalaryPolicyImpactValidationError(
-      "Salary policy change exceeds available funds.",
-      { totalNewAmount: report.totalNewAmount },
-    );
+    throw new SalaryPolicyImpactValidationError("Salary policy change exceeds available funds.", {
+      totalNewAmount: report.totalNewAmount,
+    });
   }
 }
 
@@ -315,9 +311,7 @@ export function assertSalaryPolicyImpactIsApplicable(
  * Returns the set of recipient ids whose amount changed. Useful for building
  * notifications or audit trails without re-deriving the full report.
  */
-export function collectChangedRecipientIds(
-  report: SalaryPolicyImpactReport,
-): string[] {
+export function collectChangedRecipientIds(report: SalaryPolicyImpactReport): string[] {
   return report.entries.filter((e) => !e.unchanged).map((e) => e.recipientId);
 }
 
@@ -330,16 +324,16 @@ export function collectChangedRecipientIds(
  */
 export function deriveSalaryPolicyChangesFromPeriods(
   previous: SalaryPolicyPeriod,
-  proposed: SalaryPolicyPeriod,
+  proposed: SalaryPolicyPeriod
 ): SalaryPolicyChange[] {
   if (!previous || typeof previous !== "object") {
     throw new SalaryPolicyImpactValidationError(
-      "Previous payroll period is required to derive salary policy changes.",
+      "Previous payroll period is required to derive salary policy changes."
     );
   }
   if (!proposed || typeof proposed !== "object") {
     throw new SalaryPolicyImpactValidationError(
-      "Proposed payroll period is required to derive salary policy changes.",
+      "Proposed payroll period is required to derive salary policy changes."
     );
   }
 
@@ -347,13 +341,13 @@ export function deriveSalaryPolicyChangesFromPeriods(
   for (const entry of previous.entries) {
     if (!entry || typeof entry.recipientId !== "string") {
       throw new SalaryPolicyImpactValidationError(
-        "Previous payroll period contains an entry without a recipientId.",
+        "Previous payroll period contains an entry without a recipientId."
       );
     }
     if (previousMap.has(entry.recipientId)) {
       throw new SalaryPolicyImpactValidationError(
         `Duplicate recipient "${entry.recipientId}" in previous payroll period.`,
-        { recipientId: entry.recipientId },
+        { recipientId: entry.recipientId }
       );
     }
     previousMap.set(entry.recipientId, entry.amount);
@@ -363,13 +357,13 @@ export function deriveSalaryPolicyChangesFromPeriods(
   for (const entry of proposed.entries) {
     if (!entry || typeof entry.recipientId !== "string") {
       throw new SalaryPolicyImpactValidationError(
-        "Proposed payroll period contains an entry without a recipientId.",
+        "Proposed payroll period contains an entry without a recipientId."
       );
     }
     if (proposedMap.has(entry.recipientId)) {
       throw new SalaryPolicyImpactValidationError(
         `Duplicate recipient "${entry.recipientId}" in proposed payroll period.`,
-        { recipientId: entry.recipientId },
+        { recipientId: entry.recipientId }
       );
     }
     proposedMap.set(entry.recipientId, entry.amount);

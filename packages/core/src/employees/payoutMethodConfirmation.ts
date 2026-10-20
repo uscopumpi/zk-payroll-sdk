@@ -1,7 +1,4 @@
-import {
-  validatePayoutDestination,
-  type PayoutDestinationErrorCode,
-} from "./payoutDestination";
+import { validatePayoutDestination, type PayoutDestinationErrorCode } from "./payoutDestination";
 
 /**
  * Employee payout method confirmation (#631).
@@ -25,9 +22,7 @@ import {
  * can branch on a single code space.
  */
 export type ConfirmPayoutMethodErrorCode =
-  | PayoutDestinationErrorCode
-  | "CONFIRMATION_REQUIRED"
-  | "CONFIRMATION_MISMATCH";
+  PayoutDestinationErrorCode | "CONFIRMATION_REQUIRED" | "CONFIRMATION_MISMATCH";
 
 /** Input accepted by {@link confirmPayoutMethod}. */
 export interface ConfirmPayoutMethodInput {

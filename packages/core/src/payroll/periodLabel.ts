@@ -55,14 +55,14 @@ export class InvalidPeriodError extends Error {
 export function parsePeriod(period: string): { year: number; month: number } {
   if (typeof period !== "string") {
     throw new InvalidPeriodError(
-      `Payroll period must be a string in "YYYY-MM" format, received ${typeof period}`,
+      `Payroll period must be a string in "YYYY-MM" format, received ${typeof period}`
     );
   }
 
   const match = PERIOD_PATTERN.exec(period);
   if (!match) {
     throw new InvalidPeriodError(
-      `Invalid payroll period "${period}". Expected "YYYY-MM" (e.g. "2024-01").`,
+      `Invalid payroll period "${period}". Expected "YYYY-MM" (e.g. "2024-01").`
     );
   }
 
@@ -71,13 +71,13 @@ export function parsePeriod(period: string): { year: number; month: number } {
 
   if (month < 1 || month > 12) {
     throw new InvalidPeriodError(
-      `Invalid payroll period "${period}". Month must be between 01 and 12.`,
+      `Invalid payroll period "${period}". Month must be between 01 and 12.`
     );
   }
 
   if (year < 1970 || year > 2999) {
     throw new InvalidPeriodError(
-      `Invalid payroll period "${period}". Year must be between 1970 and 2999.`,
+      `Invalid payroll period "${period}". Year must be between 1970 and 2999.`
     );
   }
 
@@ -123,7 +123,7 @@ export function getPeriodEndTimestamp(period: string): number {
 export function resolvePeriodForTimestamp(timestamp: number): string {
   if (!Number.isFinite(timestamp)) {
     throw new InvalidPeriodError(
-      `Payroll timestamp must be a finite number of milliseconds, received ${timestamp}`,
+      `Payroll timestamp must be a finite number of milliseconds, received ${timestamp}`
     );
   }
 
@@ -143,7 +143,9 @@ export function resolvePeriodForTimestamp(timestamp: number): string {
  */
 export function isTimestampInPeriod(timestamp: number, period: string): boolean {
   if (!Number.isFinite(timestamp)) {
-    throw new InvalidPeriodError(`Payroll timestamp must be a finite number, received ${timestamp}`);
+    throw new InvalidPeriodError(
+      `Payroll timestamp must be a finite number, received ${timestamp}`
+    );
   }
 
   const start = getPeriodStartTimestamp(period);
@@ -163,7 +165,9 @@ export function isTimestampInPeriod(timestamp: number, period: string): boolean 
  */
 export function getRemainingMsInPeriod(timestamp: number, period: string): number {
   if (!Number.isFinite(timestamp)) {
-    throw new InvalidPeriodError(`Payroll timestamp must be a finite number, received ${timestamp}`);
+    throw new InvalidPeriodError(
+      `Payroll timestamp must be a finite number, received ${timestamp}`
+    );
   }
 
   const end = getPeriodEndTimestamp(period);
@@ -270,7 +274,7 @@ export function formatPeriodWithOptions(period: string, options?: PeriodLabelOpt
 export function assertValidTimeZone(timeZone: string): void {
   if (typeof timeZone !== "string" || timeZone.trim() === "") {
     throw new InvalidPeriodError(
-      `Payroll timezone must be a non-empty IANA identifier, received "${timeZone}".`,
+      `Payroll timezone must be a non-empty IANA identifier, received "${timeZone}".`
     );
   }
 
@@ -280,7 +284,7 @@ export function assertValidTimeZone(timeZone: string): void {
     new Intl.DateTimeFormat("en-US", { timeZone });
   } catch {
     throw new InvalidPeriodError(
-      `Unknown payroll timezone "${timeZone}". Use an IANA identifier such as "UTC" or "Europe/Berlin".`,
+      `Unknown payroll timezone "${timeZone}". Use an IANA identifier such as "UTC" or "Europe/Berlin".`
     );
   }
 }

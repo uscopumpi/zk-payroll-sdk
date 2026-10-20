@@ -37,9 +37,7 @@ export interface PaymentInstructionLike {
  * Builds a stable fingerprint for a payment instruction so that semantically
  * identical instructions can be detected regardless of property ordering.
  */
-export function fingerprintPaymentInstruction(
-  instruction: PaymentInstructionLike
-): string {
+export function fingerprintPaymentInstruction(instruction: PaymentInstructionLike): string {
   if (!instruction || typeof instruction !== "object") {
     throw new TypeError("Payment instruction must be an object");
   }

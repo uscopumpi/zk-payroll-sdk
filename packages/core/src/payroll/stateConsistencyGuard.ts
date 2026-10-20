@@ -12,7 +12,7 @@ import type { PayrollStatus as PayrollPeriodStatus } from "./types";
 export enum StateConsistencyErrorCode {
   /** The locally tracked status does not match the on-chain status. */
   STATUS_MISMATCH = "STATUS_MISMATCH",
-    /** The requested payroll period status transition is not allowed. */
+  /** The requested payroll period status transition is not allowed. */
   INVALID_TRANSITION = "INVALID_TRANSITION",
   /** The payroll period is already in a terminal state. */
   TERMINAL_STATE = "TERMINAL_STATE",
@@ -172,14 +172,14 @@ export function assertPayrollStateConsistent(
   }
 
   if (localStatus !== onchainStatus) {
-  throw new StateConsistencyError(
-    `Payroll state mismatch for period "${localPeriodId}": local "${localStatus}" vs on-chain "${onchainStatus}".`,
-    StateConsistencyErrorCode.STATUS_MISMATCH,
-    { ...baseContext, localStatus, onchainStatus, localPeriodId, onchainPeriodId },
-    "Refresh the local payroll state from the chain and retry the operation."
-  );
-}
-  
+    throw new StateConsistencyError(
+      `Payroll state mismatch for period "${localPeriodId}": local "${localStatus}" vs on-chain "${onchainStatus}".`,
+      StateConsistencyErrorCode.STATUS_MISMATCH,
+      { ...baseContext, localStatus, onchainStatus, localPeriodId, onchainPeriodId },
+      "Refresh the local payroll state from the chain and retry the operation."
+    );
+  }
+
   const localVersion =
     typeof local.version === "number" ? local.version : tolerateMissingVersion ? 0 : undefined;
   const onchainVersion =

@@ -1,9 +1,7 @@
 import { StrKey } from "@stellar/stellar-sdk";
 
 export type PayoutDestinationErrorCode =
-  | "DESTINATION_REQUIRED"
-  | "DESTINATION_WHITESPACE"
-  | "DESTINATION_UNSUPPORTED";
+  "DESTINATION_REQUIRED" | "DESTINATION_WHITESPACE" | "DESTINATION_UNSUPPORTED";
 
 export type PayoutDestinationValidation =
   | { ok: true; destination: string; kind: "account" | "muxed_account" }
@@ -42,7 +40,7 @@ export function validatePayoutDestination(value: unknown): PayoutDestinationVali
  * through the hook, and rejection messages must not echo the rejected value.
  */
 export type DestinationValidationHook = (
-  value: string,
+  value: string
 ) => DestinationValidationHookResult | Promise<DestinationValidationHookResult>;
 
 /** Result a custom {@link DestinationValidationHook} must return. */
@@ -85,9 +83,7 @@ export const defaultDestinationValidationHook = (
  * surface messages to end users and logs.
  */
 export type PayoutMethodConfirmationErrorCode =
-  | PayoutDestinationErrorCode
-  | "PAYOUT_METHOD_HOOK_REJECTED"
-  | "PAYOUT_METHOD_HOOK_ERROR";
+  PayoutDestinationErrorCode | "PAYOUT_METHOD_HOOK_REJECTED" | "PAYOUT_METHOD_HOOK_ERROR";
 
 export type PayoutMethodConfirmationResult =
   | {
@@ -136,7 +132,7 @@ export type ConfirmPayoutMethodOptions = {
  */
 export async function confirmPayoutMethod(
   value: unknown,
-  options: ConfirmPayoutMethodOptions = {},
+  options: ConfirmPayoutMethodOptions = {}
 ): Promise<PayoutMethodConfirmationResult> {
   const base = validatePayoutDestination(value);
   if (!base.ok) return base;
@@ -167,9 +163,7 @@ export async function confirmPayoutMethod(
 
   if (hookResult.ok) {
     const hookKind =
-      typeof hookResult.kind === "string" && hookResult.kind !== ""
-        ? hookResult.kind
-        : undefined;
+      typeof hookResult.kind === "string" && hookResult.kind !== "" ? hookResult.kind : undefined;
     return {
       ok: true,
       destination: base.destination,

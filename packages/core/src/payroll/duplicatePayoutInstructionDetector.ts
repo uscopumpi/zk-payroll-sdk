@@ -24,6 +24,8 @@ export interface PayoutInstruction {
   amount: string | number | bigint;
   /** Currency / asset symbol (e.g. "XLM", "USDC"). Defaults to native/default if omitted */
   asset?: string;
+  /** Legacy alias for `asset`, kept for backwards compatibility with older payroll payloads */
+  token?: string;
   /** Optional transaction memo or reference note */
   memo?: string;
   /** Associated payroll period ID (e.g. "2026-10-W1") */
@@ -548,5 +550,15 @@ export class DuplicatePayoutInstructionDetector {
    */
   public size(): number {
     return this.registeredFingerprints.size;
+  }
+
+  /**
+   * Returns a copy of every registered instruction, in registration order.
+   *
+   * The returned array is a defensive copy: mutating it does not affect the
+   * detector's internal registry.
+   */
+  public getAll(): PayoutInstruction[] {
+    return Array.from(this.registeredFingerprints.values()).map((entry) => entry.instruction);
   }
 }

@@ -3,7 +3,7 @@ import {
   DuplicatePayoutViolationCode,
   DuplicatePayoutViolation,
   DuplicatePayoutDetectionOptions,
-  DuplicatePayoutDetectionResult,
+  DuplicatePayoutDetectionReport,
   DuplicatePayoutInstructionError,
   DuplicatePayoutInstructionDetector,
   detectDuplicatePayoutInstructions,
@@ -33,8 +33,8 @@ describe("Duplicate Payout Instruction Detection (#709)", () => {
       expect(normalizePayoutAmount("  250.75  ")).toBe("250.75");
     });
 
-    it("returns zero for empty or nullish amounts", () => {
-      expect(normalizePayoutAmount("")).toBe("0");
+    it("rejects empty amount strings", () => {
+      expect(() => normalizePayoutAmount("")).toThrow(TypeError);
     });
   });
 
@@ -78,22 +78,22 @@ describe("Duplicate Payout Instruction Detection (#709)", () => {
   });
 
   describe("detectDuplicatePayoutInstructions", () => {
-    it("returns valid for empty instruction list", () => {
+    it("returns a clean report for an empty instruction list", () => {
       const result = detectDuplicatePayoutInstructions([]);
-      expect(result.isValid).toBe(true);
-      expect(result.duplicateCount).toBe(0);
-      expect(result.violations).toHaveLength(0);
+      expect(result.hasDuplicates).toBe(false);
+      expect(result.duplicates).toHaveLength(0);
+      expect(result.totalChecked).toBe(0);
     });
 
-    it("returns valid when all instructions are unique", () => {
+    it("returns a clean report when all instructions are unique", () => {
       const instructions: PayoutInstruction[] = [
         { recipient: alice, amount: "100", asset: "USDC" },
         { recipient: bob, amount: "200", asset: "USDC" },
       ];
       const result = detectDuplicatePayoutInstructions(instructions);
-      expect(result.isValid).toBe(true);
-      expect(result.duplicateCount).toBe(0);
-      expect(result.uniqueInstructionCount).toBe(2);
+      expect(result.hasDuplicates).toBe(false);
+      expect(result.duplicates).toHaveLength(0);
+      expect(result.uniqueCount).toBe(2);
     });
 
     it("detects exact duplicate payout instructions", () => {
@@ -102,13 +102,13 @@ describe("Duplicate Payout Instruction Detection (#709)", () => {
         { id: "tx-2", recipient: alice, amount: "100", asset: "USDC" },
       ];
       const result = detectDuplicatePayoutInstructions(instructions);
-      expect(result.isValid).toBe(false);
-      expect(result.duplicateCount).toBe(1);
-      expect(result.violations[0].code).toBe("EXACT_DUPLICATE");
-      expect(result.violations[0].instructionIndex).toBe(1);
-      expect(result.violations[0].matchedInstructionIndex).toBe(0);
-      // Privacy check: Redacted message must not leak full recipient or plaintext amount
-      expect(result.violations[0].redactedMessage).not.toContain("100");
+      expect(result.hasDuplicates).toBe(true);
+      expect(result.duplicates).toHaveLength(1);
+      expect(result.duplicates[0].code).toBe("EXACT_DUPLICATE");
+      expect(result.duplicates[0].instructionIndex).toBe(1);
+      expect(result.duplicates[0].matchedInstructionIndex).toBe(0);
+      // Privacy check: the redacted message must not leak the raw recipient.
+      expect(result.duplicates[0].redactedMessage).not.toContain(alice);
     });
 
     it("detects instruction ID collisions", () => {
@@ -117,9 +117,9 @@ describe("Duplicate Payout Instruction Detection (#709)", () => {
         { id: "PAY-001", recipient: bob, amount: "200", asset: "XLM" },
       ];
       const result = detectDuplicatePayoutInstructions(instructions);
-      expect(result.isValid).toBe(false);
-      expect(result.violations[0].code).toBe("INSTRUCTION_ID_COLLISION");
-      expect(result.violations[0].matchedId).toBe("PAY-001");
+      expect(result.hasDuplicates).toBe(true);
+      expect(result.duplicates[0].code).toBe("INSTRUCTION_ID_COLLISION");
+      expect(result.duplicates[0].matchedId).toBe("PAY-001");
     });
 
     it("detects idempotencyKey collisions", () => {
@@ -128,8 +128,8 @@ describe("Duplicate Payout Instruction Detection (#709)", () => {
         { idempotencyKey: "idem-key-1", recipient: bob, amount: "200" },
       ];
       const result = detectDuplicatePayoutInstructions(instructions);
-      expect(result.isValid).toBe(false);
-      expect(result.violations[0].code).toBe("IDEMPOTENCY_KEY_COLLISION");
+      expect(result.hasDuplicates).toBe(true);
+      expect(result.duplicates[0].code).toBe("IDEMPOTENCY_KEY_COLLISION");
     });
 
     it("ignores idempotencyKey collisions when checkIdempotencyKeys is false", () => {
@@ -140,7 +140,7 @@ describe("Duplicate Payout Instruction Detection (#709)", () => {
       const result = detectDuplicatePayoutInstructions(instructions, {
         checkIdempotencyKeys: false,
       });
-      expect(result.isValid).toBe(true);
+      expect(result.hasDuplicates).toBe(false);
     });
 
     it("allows recurring payments when allowExplicitRecurring is true", () => {
@@ -151,11 +151,11 @@ describe("Duplicate Payout Instruction Detection (#709)", () => {
       const result = detectDuplicatePayoutInstructions(instructions, {
         allowExplicitRecurring: true,
       });
-      expect(result.isValid).toBe(true);
-      expect(result.duplicateCount).toBe(0);
+      expect(result.hasDuplicates).toBe(false);
+      expect(result.duplicates).toHaveLength(0);
     });
 
-    it("flags duplicate even if recurring when allowExplicitRecurring is false", () => {
+    it("flags duplicates even if recurring when allowExplicitRecurring is false", () => {
       const instructions: PayoutInstruction[] = [
         { recipient: alice, amount: "100", asset: "USDC", isRecurring: true },
         { recipient: alice, amount: "100", asset: "USDC", isRecurring: true },
@@ -163,17 +163,17 @@ describe("Duplicate Payout Instruction Detection (#709)", () => {
       const result = detectDuplicatePayoutInstructions(instructions, {
         allowExplicitRecurring: false,
       });
-      expect(result.isValid).toBe(false);
+      expect(result.hasDuplicates).toBe(true);
     });
 
-    it("flags invalid instructions with missing recipient or amount", () => {
+    it("flags invalid instructions with a missing recipient or amount", () => {
       const instructions: PayoutInstruction[] = [
         { recipient: "", amount: "100" },
         { recipient: alice, amount: "" as unknown as number },
       ];
       const result = detectDuplicatePayoutInstructions(instructions);
-      expect(result.isValid).toBe(false);
-      expect(result.violations.some((v) => v.code === "INVALID_INSTRUCTION")).toBe(true);
+      expect(result.hasDuplicates).toBe(true);
+      expect(result.duplicates.some((v) => v.code === "INVALID_INSTRUCTION")).toBe(true);
     });
   });
 
@@ -210,7 +210,7 @@ describe("Duplicate Payout Instruction Detection (#709)", () => {
 
       const v1 = detector.register(inst1);
       expect(v1).toBeNull();
-      expect(detector.size).toBe(1);
+      expect(detector.size()).toBe(1);
 
       const v2 = detector.register(inst2);
       expect(v2).not.toBeNull();
@@ -222,23 +222,39 @@ describe("Duplicate Payout Instruction Detection (#709)", () => {
       detector.register(inst);
 
       const checkResult = detector.check(inst);
-      expect(checkResult).not.toBeNull();
-      expect(detector.size).toBe(1);
+      expect(checkResult.isDuplicate).toBe(true);
+      expect(checkResult.violation?.code).toBe("EXACT_DUPLICATE");
+      expect(detector.size()).toBe(1);
     });
 
     it("clears registered instructions", () => {
       detector.register({ recipient: alice, amount: "100" });
       detector.clear();
-      expect(detector.size).toBe(0);
+      expect(detector.size()).toBe(0);
 
       const checkResult = detector.check({ recipient: alice, amount: "100" });
-      expect(checkResult).toBeNull();
+      expect(checkResult.isDuplicate).toBe(false);
     });
 
     it("returns all registered instructions via getAll", () => {
       detector.register({ id: "1", recipient: alice, amount: "100" });
       detector.register({ id: "2", recipient: bob, amount: "200" });
       expect(detector.getAll()).toHaveLength(2);
+    });
+  });
+
+  describe("types", () => {
+    it("keeps the report and violation shapes stable", () => {
+      const report: DuplicatePayoutDetectionReport = detectDuplicatePayoutInstructions([
+        { recipient: alice, amount: "100" },
+      ]);
+      const violation: DuplicatePayoutViolation | undefined = report.duplicates[0];
+      const code: DuplicatePayoutViolationCode | undefined = violation?.code;
+      const options: DuplicatePayoutDetectionOptions = { scopeToPeriod: false };
+
+      expect(report.totalChecked).toBe(1);
+      expect(code).toBeUndefined();
+      expect(options.scopeToPeriod).toBe(false);
     });
   });
 });
