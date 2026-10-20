@@ -2,14 +2,14 @@ import { evaluateStaleApprovalCleanupEligibility } from "../src/payroll/staleApp
 
 describe("evaluateStaleApprovalCleanupEligibility", () => {
   const ONE_HOUR = 3600000;
-  
+
   it("allows cleanup for stale approved status", () => {
     const result = evaluateStaleApprovalCleanupEligibility({
       status: "approved",
       executed: false,
       expiresAt: Date.now() - ONE_HOUR,
     });
-    
+
     expect(result.isEligible).toBe(true);
     expect(result.code).toBe("ELIGIBLE");
   });
@@ -20,7 +20,7 @@ describe("evaluateStaleApprovalCleanupEligibility", () => {
       executed: true,
       expiresAt: Date.now() - ONE_HOUR,
     });
-    
+
     expect(result.isEligible).toBe(false);
     expect(result.code).toBe("ALREADY_EXECUTED");
   });
@@ -31,7 +31,7 @@ describe("evaluateStaleApprovalCleanupEligibility", () => {
       executed: false,
       expiresAt: null,
     });
-    
+
     expect(result.isEligible).toBe(false);
     expect(result.code).toBe("MISSING_TIMESTAMP");
   });
@@ -42,7 +42,7 @@ describe("evaluateStaleApprovalCleanupEligibility", () => {
       executed: false,
       expiresAt: Date.now() + ONE_HOUR,
     });
-    
+
     expect(result.isEligible).toBe(false);
     expect(result.code).toBe("APPROVAL_NOT_STALE");
   });
@@ -53,7 +53,7 @@ describe("evaluateStaleApprovalCleanupEligibility", () => {
       executed: false,
       expiresAt: Date.now() - ONE_HOUR,
     });
-    
+
     expect(result.isEligible).toBe(false);
     expect(result.code).toBe("INVALID_STATUS");
   });

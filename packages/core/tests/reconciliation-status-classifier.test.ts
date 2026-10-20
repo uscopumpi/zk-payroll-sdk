@@ -123,6 +123,13 @@ describe("Reconciliation Status Classifier (#291)", () => {
           unexpected: 0,
         },
         isFullyReconciled: true,
+        totalAmountCheck: {
+          expectedTotal: 0n,
+          observedTotal: 0n,
+          isMatching: true,
+          difference: 0n,
+          reason: "Expected and observed totals agree",
+        },
         generatedAt: Date.now(),
       };
 

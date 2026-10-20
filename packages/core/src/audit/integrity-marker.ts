@@ -1,4 +1,4 @@
-import { createHash, createHmac } from 'crypto';
+import { createHash, createHmac } from "crypto";
 
 export interface AuditExportPayload {
   exportId: string;
@@ -18,13 +18,13 @@ export interface IntegrityMarkerResult {
 export class AuditIntegrityMarkerManager {
   private algorithm: string;
 
-  constructor(algorithm: string = 'sha256') {
+  constructor(algorithm: string = "sha256") {
     this.algorithm = algorithm;
   }
 
   public generateMarker(payload: AuditExportPayload, secretKey?: string): IntegrityMarkerResult {
     if (!payload || !payload.exportId) {
-      throw new Error('Invalid audit export payload: missing exportId');
+      throw new Error("Invalid audit export payload: missing exportId");
     }
 
     const canonicalString = JSON.stringify({
@@ -37,9 +37,9 @@ export class AuditIntegrityMarkerManager {
 
     let marker: string;
     if (secretKey) {
-      marker = createHmac(this.algorithm, secretKey).update(canonicalString).digest('hex');
+      marker = createHmac(this.algorithm, secretKey).update(canonicalString).digest("hex");
     } else {
-      marker = createHash(this.algorithm).update(canonicalString).digest('hex');
+      marker = createHash(this.algorithm).update(canonicalString).digest("hex");
     }
 
     return {

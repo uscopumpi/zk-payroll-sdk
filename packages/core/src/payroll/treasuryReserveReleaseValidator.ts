@@ -1,1 +1,294 @@
-LyoqCiAqIFRyZWFzdXJ5IHJlc2VydmUgcmVsZWFzZSB2YWxpZGF0aW9uIGZvciBaSyBQYXlyb2xsLgogKgogKiBWYWxpZGF0ZXMgdGhhdCBhIHRyZWFzdXJ5IHJlc2VydmUgcmVsZWFzZSByZXF1ZXN0IGlzIHdlbGwtZm9ybWVkIGFuZAogKiBzYWZlIHRvIGV4ZWN1dGUgYmVmb3JlIGl0IGlzIHN1Ym1pdHRlZCBvbi1jaGFpbi4gVGhpcyBndWFyZHMgb3BlcmF0aW9uYWwKICogcmVsaWFiaWxpdHkgYnkgcmVqZWN0aW5nIHJlbGVhc2VzIHRoYXQgd291bGQgb3ZlcndpdGhkcmF3IHRoZSByZXNlcnZlLAogKiB0YXJnZXQgYW4gdW5rbm93biByZXNlcnZlLCBvciBleGVjdXRlIGFmdGVyIGV4cGlyeS4KICovCgppbXBvcnQgdHlwZSB7IEVycm9yQ29udGV4dCB9IGZyb20gIi4uL2NvcmUvZXJyb3JzIjsKCi eightKICogU3VwcG9ydGVkIHJlc2VydmUgcmVsZWFzZSBtb2Rlcy4KICovCmV4cG9ydCB0eXBlIFRyZWFzdXJ5UmVzZXJ2ZVJlbGVhc2VNb2RlID0gInBhcnRpYWwiIHwgImZ1bGwiOwoKLyoqCiAqIEtub3duIHRyZWFzdXJ5IHJlc2VydmUgbGlmZWN5Y2xlIHN0YXRlcy4KICovCmV4cG9ydCB0eXBlIFRyZWFzdXJ5UmVzZXJ2ZVN0YXR1cyA9ICJhY3RpdmUiIHwgImxvY2tlZCIgfCAicmVsZWFzZWQiOwoKLyoqCiAqIEEgc25hcHNob3Qgb2YgYSB0cmVhc3VyeSByZXNlcnZlIGF0IHRoZSB0aW1lIGEgcmVsZWFzZSBpcyByZXF1ZXN0ZWQuCiAqLwpleHBvcnQgaW50ZXJmYWNlIFRyZWFzdXJ5UmVzZXJ2ZVNuYXBzaG90IHsKICAvKiogVW5pcXVlIGlkZW50aWZpZXIgb2YgdGhlIHJlc2VydmUuICovCiAgcmVzZXJ2ZUlkOiBzdHJpbmc7CiAgLyoqIEN1cnJlbnQgbGlmZWN5Y2xlIHN0YXR1cyBvZiB0aGUgcmVzZXJ2ZS4gKi8KICBzdGF0dXM6IFRyZWFzdXJ5UmVzZXJ2ZVN0YXR1czsKICAvKiogVG90YWwgYW1vdW50IGxvY2tlZCBpbiB0aGUgcmVzZXJ2ZSAoaW4gYmFzZSB1bml0cykuICovCiAgbG9ja2VkQW1vdW50OiBiaWdpbnQ7CiAgLyoqIEFtb3VudCBhbHJlYWR5IHJlbGVhc2VkIGZyb20gdGhlIHJlc2VydmUgKGluIGJhc2UgdW5pdHMpLiAqLwogIHJlbGVhc2VkQW1vdW50OiBiaWdpbnQ7CiAgLyoqIE9wdGlvbmFsIGV4cGlyYXRpb24gdGltZXN0YW1wIGluIG1pbGxpc2Vjb25kcy4gKi8KICBleHBpcmVzQXQ/OiBudW1iZXI7CiAgLyoqIE9wdGlvbmFsIG93bmVyIGFkZHJlc3Mgb2YgdGhlIHJlc2VydmUuICovCiAgb3duZXI/OiBzdHJpbmc7Cn0KCi8qKgogKiBBIHJlcXVlc3QgdG8gcmVsZWFzZSBmdW5kcyBmcm9tIGEgdHJlYXN1cnkgcmVzZXJ2ZS4KICovCmV4cG9ydCBpbnRlcmZhY2UgVHJlYXN1cnlSZXNlcnZlUmVsZWFzZVJlcXVlc3QgewogIC8qKiBSZXNlcnZlIGJlaW5nIHJlbGVhc2VkIGZyb20uICovCiAgcmVzZXJ2ZUlkOiBzdHJpbmc7CiAgLyoqIEFtb3VudCB0byByZWxlYXNlIChpbiBiYXNlIHVuaXRzKS4gKi8KICBhbW91bnQ6IGJpZ2ludDsKICAvKiogUmVsZWFzZSBtb2RlLiAqLwogIG1vZGU6IFRyZWFzdXJ5UmVzZXJ2ZVJlbGVhc2VNb2RlOwogIC8qKiBBZGRyZXNzIHJlcXVlc3RpbmcgdGhlIHJlbGVhc2UuICovCiAgcmVxdWVzdGVyOiBzdHJpbmc7CiAgLyoqIE9wdGlvbmFsIGRlc3RpbmF0aW9uIGFkZHJlc3MgZm9yIHRoZSByZWxlYXNlZCBmdW5kcy4gKi8KICBkZXN0aW5hdGlvbj86IHN0cmluZzsKICAvKiogT3B0aW9uYWwgZGVhZGxpbmUgKG1zKSBieSB3aGljaCB0aGUgcmVsZWFzZSBtdXN0IGV4ZWN1dGUuICovCiAgZGVhZGxpbmU/OiBudW1iZXI7CiAgLyoqIE9wdGlvbmFsIGF1dG9yaXplZCByb2xlcyBvZiB0aGUgcmVxdWVzdGVyLiAqLwogIHJlcXVlc3RlclJvbGVzPzogc3RyaW5nW107CiAgLyoqIE9wdGlvbmFsIGF1dG9yaXplZCByb2xlcyByZXF1aXJlZCB0byByZWxlYXNlLiAqLwogIHJlcXVpcmVkUm9sZXM/OiBzdHJpbmdbXTsKfQoKLyoqCiAqIEVycm9yIGNvZGVzIGVtaXR0ZWQgYnkgdGhlIHRyZWFzdXJ5IHJlc2VydmUgcmVsZWFzZSB2YWxpZGF0b3IuCiAqLwpleHBvcnQgY29uc3QgVHJlYXN1cnlSZXNlcnZlUmVsZWFzZVZhbGlkYXRpb25FcnJvckNvZGUgPSB7CiAgTUlTU0lOR19SRVNFUlZFOiAiVFJFQVNVUllfUkVTRVJWRV9NSVNTSU5HIiwKICBVTktOT1dOX1JFU0VSVkU6ICJUUkVBU1VSWV9SRVNFUlZFX1VOS05PV04iLAogIElOVkFMSURfQU1PVU5UOiAiVFJFQVNVUllfUkVTRVJWRV9JTlZBTElEX0FNT1VOVCIsCiAgSU5TVUZGSUNJRU5UX0JBTEFOQ0U6ICJUUkVBU1VSWV9SRVNFUlZFX0lOU1VGRklDSUVOVF9CQUxBTkNFIiwKICBJTlZBTElEX1NUQVRVUzogIlRSRUFTVVJZX1JFU0VSVkVfSU5WQUxJRF9TVEFUVVMiLAogIEVYUElSRUQ6ICJUUkVBU1VSWV9SRVNFUlZFX0VYUElSRUQiLAogIFVOQVVUSE9SSVpFRDogIlRSRUFTVVJZX1JFU0VSVkVfVU5BVVRIT1JJWkVEIiwKfSBhcyBjb25zdDsKCmV4cG9ydCB0eXBlIFRyZWFzdXJ5UmVzZXJ2ZVJlbGVhc2VWYWxpZGF0aW9uRXJyb3JDb2RlID0KICAodHlwZW9mIFRyZWFzdXJ5UmVzZXJ2ZVJlbGVhc2VWYWxpZGF0aW9uRXJyb3JDb2RlKVtrZXlvZiB0eXBlb2YgVHJlYXN1cnlSZXNlcnZlUmVsZWFzZVZhbGlkYXRpb25FcnJvckNvZGVdOwoKLyoqCiAqIFR5cGVkIGVycm9yIHRocm93biB3aGVuIGEgcmVzZXJ2ZSByZWxlYXNlIHJlcXVlc3QgaXMgaW52YWxpZC4KICovCmV4cG9ydCBjbGFzcyBUcmVhc3VyeVJlc2VydmVSZWxlYXNlVmFsaWRhdGlvbkVycm9yIGV4dGVuZHMgRXJyb3IgewogIHB1YmxpYyByZWFkb25seSBjb2RlOiBUcmVhc3VyeVJlc2VydmVSZWxlYXNlVmFsaWRhdGlvbkVycm9yQ29kZTsKICBwdWJsaWMgcmVhZG9ubHkgY29udGV4dDogRXJyb3JDb250ZXh0OwogIHB1YmxpYyByZWFkb25seSBkZXRhaWxzOiBSZWNvcmQ8c3RyaW5nLCB1bmtub3duPjsKCiAgY29uc3RydWN0b3IoCiAgICBtZXNzYWdlOiBzdHJpbmcsCiAgICBjb2RlOiBUcmVhc3VyeVJlc2VydmVSZWxlYXNlVmFsaWRhdGlvbkVycm9yQ29kZSwKICAgIGNvbnRleHQ6IEVycm9yQ29udGV4dCA9IHt9LAogICAgZGV0YWlsczogUmVjb3JkPHN0cmluZywgdW5rbm93bj4gPSB7fQogICkgewogICAgc3VwZXIobWVzc2FnZSk7CiAgICB0aGlzLm5hbWUgPSAiVHJlYXN1cnlSZXNlcnZlUmVsZWFzZVZhbGlkYXRpb25FcnJvciI7CiAgICB0aGlzLmNvZGUgPSBjb2RlOwogICAgdGhpcy5jb250ZXh0ID0gY29udGV4dDsKICAgIHRoaXMuZGV0YWlscyA9IGRldGFpbHM7CiAgfQp9CgpleHBvcnQgaW50ZXJmYWNlIFRyZWFzdXJ5UmVzZXJ2ZVJlbGVhc2VWYWxpZGF0aW9uUmVzdWx0IHsKICAvKiogV2hldGhlciB0aGUgcmVsZWFzZSByZXF1ZXN0IGlzIHZhbGlkLiAqLwogIHZhbGlkOiBib29sZWFuOwogIC8qKiBBbW91bnQgdGhhdCB3aWxsIGFjdHVhbGx5IGJlIHJlbGVhc2VkIChpbiBiYXNlIHVuaXRzKS4gKi8KICByZWxlYXNlQW1vdW50OiBiaWdpbnQ7CiAgLyoqIFJlbWFpbmluZyBsb2NrZWQgYW1vdW50IGFmdGVyIHRoZSByZWxlYXNlLiAqLwogIHJlbWFpbmluZ0xvY2tlZEFtb3VudDogYmlnaW50OwogIC8qKiBOZXh0IHN0YXR1cyBvZiB0aGUgcmVzZXJ2ZSBhZnRlciB0aGUgcmVsZWFzZS4gKi8KICBuZXh0U3RhdHVzOiBUcmVhc3VyeVJlc2VydmVTdGF0dXM7CiAgLyoqIE5vbi1mYXRhbCB3YXJuaW5ncyBzdXJmYWNlZCBkdXJpbmcgdmFsaWRhdGlvbi4gKi8KICB3YXJuaW5nczogc3RyaW5nW107Cn0KCmNvbnN0IERFRkFVTFRfUkVRVUlSRURfUk9MRVM6IHJlYWRvbmx5IHN0cmluZ1tdID0gWwogICJQQVlST0xMX0FETUlOIiwKICAiVFJFQVNVUlkiLAogICJFbXBsb3llciIsCl07CgpmdW5jdGlvbiBpc1Bvc2l0aXZlQmlnaW50KHZhbHVlOiB1bmtub3duKTogdmFsdWUgaXMgYmlnaW50IHsKICByZXR1cm4gdHlwZW9mIHZhbHVlID09PSAiYmlnaW50IiAmJiB2YWx1ZSA+IDBuOwp9CgpmdW5jdGlvbiBpc05vbk5lZ2F0aXZlQmlnaW50KHZhbHVlOiB1bmtub3duKTogdmFsdWUgaXMgYmlnaW50IHsKICByZXR1cm4gdHlwZW9mIHZhbHVlID09PSAiYmlnaW50IiAmJiB2YWx1ZSA+PSAwbgp9CgpmdW5jdGlvbiBub3JtYWxpemVSb2xlcyhyb2xlczogdW5rbm93bik6IHN0cmluZ1tdIHsKICBpZiAoIUFycmF5LmlzQXJyYXkocm9sZXMpKSB7CiAgICByZXR1cm4gW107CiAgfQogIHJldHVybiByb2xlcy5tYXAoKHJvbGUpID0+IFN0cmluZyhyb2xlKS50b1VwcGVyQ2FzZSgpKTsKfQoKLyoqCiAqIFZhbGlkYXRlcyBhIHRyZWFzdXJ5IHJlc2VydmUgcmVsZWFzZSByZXF1ZXN0IGFnYWluc3QgdGhlIGN1cnJlbnQgcmVzZXJ2ZQogKiBzbmFwc2hvdCBhbmQgb3B0aW9uYWwgY2xvY2sgdGltZS4KICoKICogVGhyb3dzIGEgYFRyZWFzdXJ5UmVzZXJ2ZVJlbGVhc2VWYWxpZGF0aW9uRXJyb3JgIHdpdGggYW4gYWN0aW9uYWJsZQogKiBtZXNzYWdlIGFuZCB0eXBlZCBlcnJvciBjb2RlIHdoZW4gdGhlIHJlcXVlc3QgaXMgaW52YWxpZC4KICoKICogQHBhcmFtIHJlcXVlc3QgLSBUaGUgcmVsZWFzZSByZXF1ZXN0IHRvIHZhbGlkYXRlLgogKiBAcGFyYW0gcmVzZXJ2ZSAtIEN1cnJlbnQgc25hcHNob3Qgb2YgdGhlIHRyZWFzdXJ5IHJlc2VydmUuCiAqIEBwYXJhbSBub3cgLSBPcHRpb25hbCBjdXJyZW50IHRpbWVzdGFtcCBpbiBtaWxsaXNlY29uZHMgKGRlZmF1bHRzIHRvIERhdGUubm93KCkpLgogKiBAcGFyYW0gY29udGV4dCAtIE9wdGlvbmFsIGRlYnVnZ2luZyBjb250ZXh0LgogKiBAcmV0dXJucyBWYWxpZGF0aW9uIHJlc3VsdCBkZXNjcmliaW5nIHRoZSByZWxlYXNlLgogKi8KZXhwb3J0IGZ1bmN0aW9uIHZhbGlkYXRlVHJlYXN1cnlSZXNlcnZlUmVsZWFzZSgKICByZXF1ZXN0OiBUcmVhc3VyeVJlc2VydmVSZWxlYXNlUmVxdWVzdCwKICByZXNlcnZlOiBUcmVhc3VyeVJlc2VydmVTbmFwc2hvdCB8IG51bGwgfCB1bmRlZmluZWQsCiAgbm93OiBudW1iZXIgPSBEYXRlLm5vdygpLAogIGNvbnRleHQ6IEVycm9yQ29udGV4dCA9IHt9Cik6IFRyZWFzdXJ5UmVzZXJ2ZVJlbGVhc2VWYWxpZGF0aW9uUmVzdWx0IHsKICBpZiAoIXJlc2VydmUgfHwgdHlwZW9mIHJlc2VydmUgIT09ICJvYmplY3QiKSB7CiAgICB0aHJvdyBuZXcgVHJlYXN1cnlSZXNlcnZlUmVsZWFzZVZhbGlkYXRpb25FcnJvcigKICAgICAgIlRyZWFzdXJ5IHJlc2VydmUgc25hcHNob3QgaXMgcmVxdWlyZWQgdG8gdmFsaWRhdGUgYSByZWxlYXNlIiwKICAgICAgVHJlYXN1cnlSZXNlcnZlUmVsZWFzZVZhbGlkYXRpb25FcnJvckNvZGUuTUlTU0lOR19SRVNFUlZFLAogICAgICB7IC4uLmNvbnRleHQsIHJlc2VydmVJZDogcmVxdWVzdD8ucmVzZXJ2ZUlkIH0sCiAgICAgIHsgcmVzZXJ2ZUlkOiByZXF1ZXN0Py5yZXNlcnZlSWQgfQogICAgKTsKICB9CgogIGlmICghcmVxdWVzdCB8fCB0eXBlb2YgcmVxdWVzdCAhPT0gIm9iamVjdCIpIHsKICAgIHRocm93IG5ldyBUcmVhc3VyeVJlc2VydmVSZWxlYXNlVmFsaWRhdGlvbkVycm9yKAogICAgICAiVHJlYXN1cnkgcmVzZXJ2ZSByZWxlYXNlIHJlcXVlc3QgaXMgcmVxdWlyZWQiLAogICAgICBUcmVhc3VyeVJlc2VydmVSZWxlYXNlVmFsaWRhdGlvbkVycm9yQ29kZS5NSVNTSU5HX1JFU0VSVkUsCiAgICAgIGNvbnRleHQsCiAgICAgIHt9CiAgICApOwogIH0KCiAgaWYgKCFyZXF1ZXN0LnJlc2VydmVJZCB8fCB0eXBlb2YgcmVxdWVzdC5yZXNlcnZlSWQgIT09ICJzdHJpbmciKSB7CiAgICB0aHJvdyBuZXcgVHJlYXN1cnlSZXNlcnZlUmVsZWFzZVZhbGlkYXRpb25FcnJvcigKICAgICAgIlJlc2VydmUgSUQgaXMgcmVxdWlyZWQgdG8gdmFsaWRhdGUgYSB0cmVhc3VyeSByZXNlcnZlIHJlbGVhc2UiLAogICAgICBUcmVhc3VyeVJlc2VydmVSZWxlYXNlVmFsaWRhdGlvbkVycm9yQ29kZS5NSVNTSU5HX1JFU0VSVkUsCiAgICAgIGNvbnRleHQsCiAgICAgIHsgcmVzZXJ2ZUlkOiByZXF1ZXN0LnJlc2VydmVJZCB9CiAgICApOwogIH0KCiAgaWYgKCFyZXNlcnZlLnJlc2VydmVJZCB8fCByZXNlcnZlLnJlc2VydmVJZCAhPT0gcmVxdWVzdC5yZXNlcnZlSWQpIHsKICAgIHRocm93IG5ldyBUcmVhc3VyeVJlc2VydmVSZWxlYXNlVmFsaWRhdGlvbkVycm9yKAogICAgICBgUmVzZXJ2ZSAke3JlcXVlc3QucmVzZXJ2ZUlkfSBkb2VzIG5vdCBtYXRjaCB0aGUgcHJvdmlkZWQgc25hcHNob3QgJHtyZXNlcnZlLnJlc2VydmVJZCA/PyAiW2VtcHR5XSJ9YCwKICAgICAgVHJlYXN1cnlSZXNlcnZlUmVsZWFzZVZhbGlkYXRpb25FcnJvckNvZGUuVU5LTk9XTl9SRVNFUlZFLAogICAgICB7IC4uLmNvbnRleHQsIHJlc2VydmVJZDogcmVxdWVzdC5yZXNlcnZlSWQgfSwKICAgICAgeyByZXF1ZXN0ZWRSZXNlcnZlSWQ6IHJlcXVlc3QucmVzZXJ2ZUlkLCBzbmFwc2hvdFJlc2VydmVJZDogcmVzZXJ2ZS5yZXNlcnZlSWQgfQogICAgKTsKICB9CgogIGlmICghaXNQb3NpdGl2ZUJpZ2ludChyZXF1ZXN0LmFtb3VudCkpIHsKICAgIHRocm93IG5ldyBUcmVhc3VyeVJlc2VydmVSZWxlYXNlVmFsaWRhdGlvbkVycm9yKAogICAgICAiUmVsZWFzZSBhbW91bnQgbXVzdCBiZSBhIHBvc2l0aXZlIGJpZ2ludCIsCiAgICAgIFRyZWFzdXJ5UmVzZXJ2ZVJlbGVhc2VWYWxpZGF0aW9uRXJyb3JDb2RlLklOVkFMSURfQU1PVU5ULAogICAgICB7IC4uLmNvbnRleHQsIHJlc2VydmVJZDogcmVxdWVzdC5yZXNlcnZlSWQgfSwKICAgICAgeyBhbW91bnQ6IHJlcXVlc3QuYW1vdW50IH0KICAgICk7CiAgfQoKICBpZiAoIWlzTm9uTmVnYXRpdmVCaWdudChyZXNlcnZlLmxvY2tlZEFtb3VudCkgfHwgIWlzTm9uTmVnYXRpdmVCaWdudChyZXNlcnZlLnJlbGVhc2VkQW1vdW50KSkgewogICAgdGhyb3cgbmV3IFRyZWFzdXJ5UmVzZXJ2ZVJlbGVhc2VWYWxpZGF0aW9uRXJyb3IoCiAgICAgICJSZXNlcnZlIGFtb3VudHMgKGxvY2tlZC9yZWxlYXNlZCkgbXVzdCBiZSBub24tbmVnYXRpdmUgYmlnaW50cyIsCiAgICAgIFRyZWFzdXJ5UmVzZXJ2ZVJlbGVhc2VWYWxpZGF0aW9uRXJyb3JDb2RlLklOVkFMSURfQU1PVU5ULAogICAgICB7IC4uLmNvbnRleHQsIHJlc2VydmVJZDogcmVxdWVzdC5yZXNlcnZlSWQgfSwKICAgICAgeyBsb2NrZWRBbW91bnQ6IHJlc2VydmUubG9ja2VkQW1vdW50LCByZWxlYXNlZEFtb3VudDogcmVzZXJ2ZS5yZWxlYXNlZEFtb3VudCB9CiAgICApOwogIH0KCiAgaWYgKHJlc2VydmUuc3RhdHVzICE9PSAiYWN0aXZlIiAmJiByZXNlcnZlLnN0YXR1cyAhPT0gImxvY2tlZCIpIHsKICAgIHRocm93IG5ldyBUcmVhc3VyeVJlc2VydmVSZWxlYXNlVmFsaWRhdGlvbkVycm9yKAogICAgICBgUmVzZXJ2ZSAke3Jlc2VydmUucmVzZXJ2ZUlkfSBpcyAke3Jlc2VydmUuc3RhdHVzfSBhbmQgY2Fubm90IGJlIHJlbGVhc2VkYCwKICAgICAgVHJlYXN1cnlSZXNlcnZlUmVsZWFzZVZhbGlkYXRpb25FcnJvckNvZGUuSU5WQUxJRF9TVEFUVVMsCiAgICAgIHsgLi4uY29udGV4dCwgcmVzZXJ2ZUlkOiByZXF1ZXN0LnJlc2VydmVJZCB9LAogICAgICB7IHN0YXR1czogcmVzZXJ2ZS5zdGF0dXMgfQogICAgKTsKICB9CgogIGlmICh0eXBlb2YgcmVzZXJ2ZS5leHBpcmVzQXQgPT09ICJudW1iZXIiICYmIHJlc2VydmUuZXhwaXJlc0F0IDw9IG5vdykgewogICAgdGhyb3cgbmV3IFRyZWFzdXJ5UmVzZXJ2ZVJlbGVhc2VWYWxpZGF0aW9uRXJyb3IoCiAgICAgIGBSZXNlcnZlICR7cmVzZXJ2ZS5yZXNlcnZlSWR9IGV4cGlyZWQgYXQgJHtyZXNlcnZlLmV4cGlyZXNBdH0gYW5kIGNhbm5vdCBiZSByZWxlYXNlZGAsCiAgICAgIFRyZWFzdXJ5UmVzZXJ2ZVJlbGVhc2VWYWxpZGF0aW9uRXJyb3JDb2RlLkVYUElSRUQsCiAgICAgIHsgLi4uY29udGV4dCwgcmVzZXJ2ZUlkOiByZXF1ZXN0LnJlc2VydmVJZCB9LAogICAgICB7IGV4cGlyZXNBdDogcmVzZXJ2ZS5leHBpcmVzQXQsIG5vdyB9CiAgICApOwogIH0KCiAgaWYgKHR5cGVvZiByZXF1ZXN0LmRlYWRsaW5lID09PSAibnVtYmVyIiAmJiByZXF1ZXN0LmRlYWRsaW5lIDwgbm93KSB7CiAgICB0aHJvdyBuZXcgVHJlYXN1cnlSZXNlcnZlUmVsZWFzZVZhbGlkYXRpb25FcnJvcigKICAgICAgYFJlbGVhc2UgZGVhZGxpbmUgJHtyZXF1ZXN0LmRlYWRsaW5lfSBoYXMgYWxyZWFkeSBwYXNzZWQgKGN1cnJlbnQgdGltZSAke25vd30pYCwKICAgICAgVHJlYXN1cnlSZXNlcnZlUmVsZWFzZVZhbGlkYXRpb25FcnJvckNvZGUuRVhQSVJFRCwKICAgICAgeyAuLi5jb250ZXh0LCByZXNlcnZlSWQ6IHJlcXVlc3QucmVzZXJ2ZUlkIH0sCiAgICAgIHsgZGVhZGxpbmU6IHJlcXVlc3QuZGVhZGxpbmUsIG5vdyB9CiAgICApOwogIH0KCiAgY29uc3QgcmVxdWlyZWRSb2xlcyA9CiAgICBBcnJheS5pc0FycmF5KHJlcXVlc3QucmVxdWlyZWRSb2xlcykgJiYgcmVxdWVzdC5yZXF1aXJlZFJvbGVzLmxlbmd0aCA+IDAKICAgICAgPyByZXF1ZXN0LnJlcXVpcmVkUm9sZXMubWFwKChyb2xlKSA9PiBTdHJpbmcocm9sZSkudG9VcHBlckNhc2UoKSkKICAgICAgOiBERUZBVUxUX1JFUVVJUkVEX1JPTEVTOwoKICBjb25zdCByZXF1ZXN0ZXJSb2xlcyA9IG5vcm1hbGl6ZVJvbGVzKHJlcXVlc3QucmVxdWVzdGVyUm9sZXMpOwogIGNvbnN0IGlzQXV0aG9yaXplZCA9IHJlcXVlc3RlclJvbGVzLnNvbWUoKHJvbGUpID0+IHJlcXVpcmVkUm9sZXMuaW5jbHVkZXMocm9sZSkpOwoKICBpZiAoIWlzQXV0aG9yaXplZCkgewogICAgdGhyb3cgbmV3IFRyZWFzdXJ5UmVzZXJ2ZVJlbGVhc2VWYWxpZGF0aW9uRXJyb3IoCiAgICAgIGBSZXF1ZXN0ZXIgJHtyZXF1ZXN0LnJlcXVlc3RlciA/PyAiW2VtcHR5XSJ9IGlzIG5vdCBhdXRob3JpemVkIHRvIHJlbGVhc2UgcmVzZXJ2ZSAke3JlcXVlc3QucmVzZXJ2ZUlkfS4gUmVxdWlyZWQgb25lIG9mOiAke3JlcXVpcmVkUm9sZXMuam9pbigiLCAiKX1gLAogICAgICBUcmVhc3VyeVJlc2VydmVSZWxlYXNlVmFsaWRhdGlvbkVycm9yQ29kZS5VTkFVVEhPUklaRUQsCiAgICAgIHsgLi4uY29udGV4dCwgcmVzZXJ2ZUlkOiByZXF1ZXN0LnJlc2VydmVJZCB9LAogICAgICB7IHJlcXVlc3RlcjogcmVxdWVzdC5yZXF1ZXN0ZXIsIHJlcXVlc3RlclJvbGVzLCByZXF1aXJlZFJvbGVzIH0KICAgICk7CiAgfQoKICBjb25zdCBhdmFpbGFibGUgPSByZXNlcnZlLmxvY2tlZEFtb3VudCAtIHJlc2VydmUucmVsZWFzZWRBbW91bnQ7CiAgY29uc3Qgd2FybmluZ3M6IHN0cmluZ1tdID0gW107CgogIGxldCByZWxlYXNlQW1vdW50OiBiaWdpbnQ7CiAgaWYgKHJlcXVlc3QubW9kZSA9PT0gImZ1bGwiKSB7CiAgICByZWxlYXNlQW1vdW50ID0gYXZhaWxhYmxlOwogICAgaWYgKHJlcXVlc3QuYW1vdW50ICE9PSBhdmFpbGFibGUpIHsKICAgICAgd2FybmluZ3MucHVzaCgKICAgICAgICBgUmVsZWFzZSBtb2RlICJmdWxsIiBvdmVycmlkZXMgcmVxdWVzdGVkIGFtb3VudCAke3JlcXVlc3QuYW1vdW50fSB0byBhdmFpbGFibGUgJHthdmFpbGFibGV9YAogICAgICApOwogICAgfQogIH0gZWxzZSBpZiAocmVxdWVzdC5tb2RlID09PSAicGFydGlhbCIpIHsKICAgIHJlbGVhc2VBbW91bnQgPSByZXF1ZXN0LmFtb3VudDsKICB9IGVsc2UgewogICAgdGhyb3cgbmV3IFRyZWFzdXJ5UmVzZXJ2ZVJlbGVhc2VWYWxpZGF0aW9uRXJyb3IoCiAgICAgIGBVbnN1cHBvcnRlZCByZWxlYXNlIG1vZGUgIiR7U3RyaW5nKHJlcXVlc3QubW9kZSl9Ii4gRXhwZWN0ZWQgImZ1bGwiIG9yICJwYXJ0aWFsImAsCiAgICAgIFRyZWFzdXJ5UmVzZXJ2ZVJlbGVhc2VWYWxpZGF0aW9uRXJyb3JDb2RlLklOVkFMSURfQU1PVU5ULAogICAgICB7IC4uLmNvbnRleHQsIHJlc2VydmVJZDogcmVxdWVzdC5yZXNlcnZlSWQgfSwKICAgICAgeyBtb2RlOiByZXF1ZXN0Lm1vZGUgfQogICAgKTsKICB9CgogIGlmIChyZWxlYXNlQW1vdW50ID4gYXZhaWxhYmxlKSB7CiAgICB0aHJvdyBuZXcgVHJlYXN1cnlSZXNlcnZlUmVsZWFzZVZhbGlkYXRpb25FcnJvcigKICAgICAgYFJlbGVhc2UgYW1vdW50ICR7cmVsZWFzZUFtb3VudH0gZXhjZWVkcyBhdmFpbGFibGUgcmVzZXJ2ZSBiYWxhbmNlICR7YXZhaWxhYmxlfWAsCiAgICAgIFRyZWFzdXJ5UmVzZXJ2ZVJlbGVhc2VWYWxpZGF0aW9uRXJyb3JDb2RlLklOU1VGRklDSUVOVF9CQUxBTkNFLAogICAgICB7IC4uLmNvbnRleHQsIHJlc2VydmVJZDogcmVxdWVzdC5yZXNlcnZlSWQgfSwKICAgICAgeyByZWxlYXNlQW1vdW50LCBhdmFpbGFibGUgfQogICAgKTsKICB9CgogIGNvbnN0IHJlbWFpbmluZ0xvY2tlZEFtb3VudCA9IGF2YWlsYWJsZSAtIHJlbGVhc2VBbW91bnQ7CiAgY29uc3QgbmV4dFN0YXR1czogVHJlYXN1cnlSZXNlcnZlU3RhdHVzID0gcmVtYWluaW5nTG9ja2VkQW1vdW50ID09PSAwbiA/ICJyZWxlYXNlZCIgOiAibG9ja2VkIjsKCiAgaWYgKHJlbWFpbmluZ0xvY2tlZEFtb3VudCA+IDBuICYmIHJlbWFpbmluZ0xvY2tlZEFtb3VudCA8IHJlbGVhc2VBbW91bnQpIHsKICAgIHdhcm5pbmdzLnB1c2goCiAgICAgICJSZW1haW5pbmcgbG9ja2VkIGJhbGFuY2UgaXMgbG93ZXIgdGhhbiB0aGUgcmVsZWFzZWQgYW1vdW50OyBjb25zaWRlciBhIGZ1bGwgcmVsZWFzZSIKICAgICk7CiAgfQoKICByZXR1cm4gewogICAgdmFsaWQ6IHRydWUsCiAgICByZWxlYXNlQW1vdW50LAogICAgcmVtYWluaW5nTG9ja2VkQW1vdW50LAogICAgbmV4dFN0YXR1cywKICAgIHdhcm5pbmdzLAogIH07Cn0K
+/**
+ * Treasury reserve release validation for ZK Payroll.
+ *
+ * Validates that a treasury reserve release request is well-formed and
+ * safe to execute before it is submitted on-chain. This guards operational
+ * reliability by rejecting releases that would overwithdraw the reserve,
+ * target an unknown reserve, or execute after expiry.
+ */
+
+import type { ErrorContext } from "../core/errors";
+
+/**
+ * Supported reserve release modes.
+ */
+export type TreasuryReserveReleaseMode = "partial" | "full";
+
+/**
+ * Known treasury reserve lifecycle states.
+ */
+export type TreasuryReserveStatus = "active" | "locked" | "released";
+
+/**
+ * A snapshot of a treasury reserve at the time a release is requested.
+ */
+export interface TreasuryReserveSnapshot {
+  /** Unique identifier of the reserve. */
+  reserveId: string;
+  /** Current lifecycle status of the reserve. */
+  status: TreasuryReserveStatus;
+  /** Total amount locked in the reserve (in base units). */
+  lockedAmount: bigint;
+  /** Amount already released from the reserve (in base units). */
+  releasedAmount: bigint;
+  /** Optional expiration timestamp in milliseconds. */
+  expiresAt?: number;
+  /** Optional owner address of the reserve. */
+  owner?: string;
+}
+
+/**
+ * A request to release funds from a treasury reserve.
+ */
+export interface TreasuryReserveReleaseRequest {
+  /** Reserve being released from. */
+  reserveId: string;
+  /** Amount to release (in base units). */
+  amount: bigint;
+  /** Release mode. */
+  mode: TreasuryReserveReleaseMode;
+  /** Address requesting the release. */
+  requester: string;
+  /** Optional destination address for the released funds. */
+  destination?: string;
+  /** Optional deadline (ms) by which the release must execute. */
+  deadline?: number;
+  /** Optional autorized roles of the requester. */
+  requesterRoles?: string[];
+  /** Optional autorized roles required to release. */
+  requiredRoles?: string[];
+}
+
+/**
+ * Error codes emitted by the treasury reserve release validator.
+ */
+export const TreasuryReserveReleaseValidationErrorCode = {
+  MISSING_RESERVE: "TREASURY_RESERVE_MISSING",
+  UNKNOWN_RESERVE: "TREASURY_RESERVE_UNKNOWN",
+  INVALID_AMOUNT: "TREASURY_RESERVE_INVALID_AMOUNT",
+  INSUFFICIENT_BALANCE: "TREASURY_RESERVE_INSUFFICIENT_BALANCE",
+  INVALID_STATUS: "TREASURY_RESERVE_INVALID_STATUS",
+  EXPIRED: "TREASURY_RESERVE_EXPIRED",
+  UNAUTHORIZED: "TREASURY_RESERVE_UNAUTHORIZED",
+} as const;
+
+export type TreasuryReserveReleaseValidationErrorCode =
+  (typeof TreasuryReserveReleaseValidationErrorCode)[keyof typeof TreasuryReserveReleaseValidationErrorCode];
+
+/**
+ * Typed error thrown when a reserve release request is invalid.
+ */
+export class TreasuryReserveReleaseValidationError extends Error {
+  public readonly code: TreasuryReserveReleaseValidationErrorCode;
+  public readonly context: ErrorContext;
+  public readonly details: Record<string, unknown>;
+
+  constructor(
+    message: string,
+    code: TreasuryReserveReleaseValidationErrorCode,
+    context: ErrorContext = {},
+    details: Record<string, unknown> = {}
+  ) {
+    super(message);
+    this.name = "TreasuryReserveReleaseValidationError";
+    this.code = code;
+    this.context = context;
+    this.details = details;
+  }
+}
+
+export interface TreasuryReserveReleaseValidationResult {
+  /** Whether the release request is valid. */
+  valid: boolean;
+  /** Amount that will actually be released (in base units). */
+  releaseAmount: bigint;
+  /** Remaining locked amount after the release. */
+  remainingLockedAmount: bigint;
+  /** Next status of the reserve after the release. */
+  nextStatus: TreasuryReserveStatus;
+  /** Non-fatal warnings surfaced during validation. */
+  warnings: string[];
+}
+
+const DEFAULT_REQUIRED_ROLES: readonly string[] = ["PAYROLL_ADMIN", "TREASURY", "Employer"];
+
+function isPositiveBigint(value: unknown): value is bigint {
+  return typeof value === "bigint" && value > 0n;
+}
+
+function isNonNegativeBigint(value: unknown): value is bigint {
+  return typeof value === "bigint" && value >= 0n;
+}
+
+function normalizeRoles(roles: unknown): string[] {
+  if (!Array.isArray(roles)) {
+    return [];
+  }
+  return roles.map((role) => String(role).toUpperCase());
+}
+
+/**
+ * Validates a treasury reserve release request against the current reserve
+ * snapshot and optional clock time.
+ *
+ * Throws a `TreasuryReserveReleaseValidationError` with an actionable
+ * message and typed error code when the request is invalid.
+ *
+ * @param request - The release request to validate.
+ * @param reserve - Current snapshot of the treasury reserve.
+ * @param now - Optional current timestamp in milliseconds (defaults to Date.now()).
+ * @param context - Optional debugging context.
+ * @returns Validation result describing the release.
+ */
+export function validateTreasuryReserveRelease(
+  request: TreasuryReserveReleaseRequest,
+  reserve: TreasuryReserveSnapshot | null | undefined,
+  now: number = Date.now(),
+  context: ErrorContext = {}
+): TreasuryReserveReleaseValidationResult {
+  if (!reserve || typeof reserve !== "object") {
+    throw new TreasuryReserveReleaseValidationError(
+      "Treasury reserve snapshot is required to validate a release",
+      TreasuryReserveReleaseValidationErrorCode.MISSING_RESERVE,
+      { ...context, reserveId: request?.reserveId },
+      { reserveId: request?.reserveId }
+    );
+  }
+
+  if (!request || typeof request !== "object") {
+    throw new TreasuryReserveReleaseValidationError(
+      "Treasury reserve release request is required",
+      TreasuryReserveReleaseValidationErrorCode.MISSING_RESERVE,
+      context,
+      {}
+    );
+  }
+
+  if (!request.reserveId || typeof request.reserveId !== "string") {
+    throw new TreasuryReserveReleaseValidationError(
+      "Reserve ID is required to validate a treasury reserve release",
+      TreasuryReserveReleaseValidationErrorCode.MISSING_RESERVE,
+      context,
+      { reserveId: request.reserveId }
+    );
+  }
+
+  if (!reserve.reserveId || reserve.reserveId !== request.reserveId) {
+    throw new TreasuryReserveReleaseValidationError(
+      `Reserve ${request.reserveId} does not match the provided snapshot ${reserve.reserveId ?? "[empty]"}`,
+      TreasuryReserveReleaseValidationErrorCode.UNKNOWN_RESERVE,
+      { ...context, reserveId: request.reserveId },
+      { requestedReserveId: request.reserveId, snapshotReserveId: reserve.reserveId }
+    );
+  }
+
+  if (!isPositiveBigint(request.amount)) {
+    throw new TreasuryReserveReleaseValidationError(
+      "Release amount must be a positive bigint",
+      TreasuryReserveReleaseValidationErrorCode.INVALID_AMOUNT,
+      { ...context, reserveId: request.reserveId },
+      { amount: request.amount }
+    );
+  }
+
+  if (!isNonNegativeBigint(reserve.lockedAmount) || !isNonNegativeBigint(reserve.releasedAmount)) {
+    throw new TreasuryReserveReleaseValidationError(
+      "Reserve amounts (locked/released) must be non-negative bigints",
+      TreasuryReserveReleaseValidationErrorCode.INVALID_AMOUNT,
+      { ...context, reserveId: request.reserveId },
+      { lockedAmount: reserve.lockedAmount, releasedAmount: reserve.releasedAmount }
+    );
+  }
+
+  if (reserve.status !== "active" && reserve.status !== "locked") {
+    throw new TreasuryReserveReleaseValidationError(
+      `Reserve ${reserve.reserveId} is ${reserve.status} and cannot be released`,
+      TreasuryReserveReleaseValidationErrorCode.INVALID_STATUS,
+      { ...context, reserveId: request.reserveId },
+      { status: reserve.status }
+    );
+  }
+
+  if (typeof reserve.expiresAt === "number" && reserve.expiresAt <= now) {
+    throw new TreasuryReserveReleaseValidationError(
+      `Reserve ${reserve.reserveId} expired at ${reserve.expiresAt} and cannot be released`,
+      TreasuryReserveReleaseValidationErrorCode.EXPIRED,
+      { ...context, reserveId: request.reserveId },
+      { expiresAt: reserve.expiresAt, now }
+    );
+  }
+
+  if (typeof request.deadline === "number" && request.deadline < now) {
+    throw new TreasuryReserveReleaseValidationError(
+      `Release deadline ${request.deadline} has already passed (current time ${now})`,
+      TreasuryReserveReleaseValidationErrorCode.EXPIRED,
+      { ...context, reserveId: request.reserveId },
+      { deadline: request.deadline, now }
+    );
+  }
+
+  const requiredRoles =
+    Array.isArray(request.requiredRoles) && request.requiredRoles.length > 0
+      ? request.requiredRoles.map((role) => String(role).toUpperCase())
+      : DEFAULT_REQUIRED_ROLES;
+
+  const requesterRoles = normalizeRoles(request.requesterRoles);
+  const isAuthorized = requesterRoles.some((role) => requiredRoles.includes(role));
+
+  if (!isAuthorized) {
+    throw new TreasuryReserveReleaseValidationError(
+      `Requester ${request.requester ?? "[empty]"} is not authorized to release reserve ${request.reserveId}. Required one of: ${requiredRoles.join(", ")}`,
+      TreasuryReserveReleaseValidationErrorCode.UNAUTHORIZED,
+      { ...context, reserveId: request.reserveId },
+      { requester: request.requester, requesterRoles, requiredRoles }
+    );
+  }
+
+  const available = reserve.lockedAmount - reserve.releasedAmount;
+  const warnings: string[] = [];
+
+  let releaseAmount: bigint;
+  if (request.mode === "full") {
+    releaseAmount = available;
+    if (request.amount !== available) {
+      warnings.push(
+        `Release mode "full" overrides requested amount ${request.amount} to available ${available}`
+      );
+    }
+  } else if (request.mode === "partial") {
+    releaseAmount = request.amount;
+  } else {
+    throw new TreasuryReserveReleaseValidationError(
+      `Unsupported release mode "${String(request.mode)}". Expected "full" or "partial"`,
+      TreasuryReserveReleaseValidationErrorCode.INVALID_AMOUNT,
+      { ...context, reserveId: request.reserveId },
+      { mode: request.mode }
+    );
+  }
+
+  if (releaseAmount > available) {
+    throw new TreasuryReserveReleaseValidationError(
+      `Release amount ${releaseAmount} exceeds available reserve balance ${available}`,
+      TreasuryReserveReleaseValidationErrorCode.INSUFFICIENT_BALANCE,
+      { ...context, reserveId: request.reserveId },
+      { releaseAmount, available }
+    );
+  }
+
+  const remainingLockedAmount = available - releaseAmount;
+  const nextStatus: TreasuryReserveStatus = remainingLockedAmount === 0n ? "released" : "locked";
+
+  if (remainingLockedAmount > 0n && remainingLockedAmount < releaseAmount) {
+    warnings.push(
+      "Remaining locked balance is lower than the released amount; consider a full release"
+    );
+  }
+
+  return {
+    valid: true,
+    releaseAmount,
+    remainingLockedAmount,
+    nextStatus,
+    warnings,
+  };
+}

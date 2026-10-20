@@ -189,9 +189,7 @@ describe("Payment Instruction Expiry Helper", () => {
         { currentTime: now }
       );
 
-      expect(result.violation?.redactedMessage).not.toContain(
-        "SECRET_INSTRUCTION_ID_12345"
-      );
+      expect(result.violation?.redactedMessage).not.toContain("SECRET_INSTRUCTION_ID_12345");
     });
 
     it("handles instructions with sensitive characters", () => {

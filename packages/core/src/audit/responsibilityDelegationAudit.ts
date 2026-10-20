@@ -135,7 +135,11 @@ export function validatePayrollDelegationRecord(record: PayrollDelegationRecord)
     return { valid: false, errors: ["Delegation record must be a defined object."] };
   }
 
-  if (!record.delegationId || typeof record.delegationId !== "string" || !record.delegationId.trim()) {
+  if (
+    !record.delegationId ||
+    typeof record.delegationId !== "string" ||
+    !record.delegationId.trim()
+  ) {
     errors.push("Missing or invalid delegationId.");
   }
 
@@ -161,7 +165,11 @@ export function validatePayrollDelegationRecord(record: PayrollDelegationRecord)
     }
   }
 
-  if (typeof record.validFromMs !== "number" || isNaN(record.validFromMs) || record.validFromMs < 0) {
+  if (
+    typeof record.validFromMs !== "number" ||
+    isNaN(record.validFromMs) ||
+    record.validFromMs < 0
+  ) {
     errors.push("validFromMs must be a non-negative timestamp.");
   }
 
@@ -192,7 +200,8 @@ export function auditPayrollResponsibilityDelegation(
       authorized: false,
       delegationId: request?.delegationId ?? "unknown",
       denialCode: "INVALID_REQUEST",
-      reason: "Audit request is missing required fields (delegationId, claimedResponsibility, or delegate).",
+      reason:
+        "Audit request is missing required fields (delegationId, claimedResponsibility, or delegate).",
     };
   }
 

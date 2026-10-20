@@ -118,7 +118,7 @@ const SHA256_HEX_REGEX = /^[a-f0-9]{64}$/i;
 const URI_REGEX = /^https?:\/\/.+/;
 
 /** Default retention window in days (7 years) */
-export const DEFAULT_AUDIT_RETENTION_DAYS = 365*7;
+export const DEFAULT_AUDIT_RETENTION_DAYS = 365 * 7;
 /** Minimum retention window in days (1 day) */
 export const MIN_AUDIT_RETENTION_DAYS = 1;
 /** Maximum retention window in days (100 years) */
@@ -137,7 +137,7 @@ export function redactOperationId(id?: string): string {
 }
 
 /** Resolve a retention policy, applying defaults and normalizing values. */
-export function resolveAuditRetentionPolicy(
+export function resolveAuditReferenceRetentionPolicy(
   policy?: AuditReferenceRetentionPolicy
 ): ResolvedAuditRetentionPolicy {
   const retentionDays = policy?.retentionDays ?? DEFAULT_AUDIT_RETENTION_DAYS;
@@ -351,7 +351,7 @@ export function attachAuditReference(
   }
 
   const attachedAt = Date.now();
-  const retentionPolicy = resolveAuditRetentionPolicy(input.retentionPolicy);
+  const retentionPolicy = resolveAuditReferenceRetentionPolicy(input.retentionPolicy);
   const expiresAt = computeAuditReferenceExpiresAt(attachedAt, retentionPolicy);
 
   return {

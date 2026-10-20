@@ -84,11 +84,7 @@ export type EmployeePayoutMethodConfirmationErrorCode =
  * coarse, non-throwing status suitable for UI and pre-flight checks.
  */
 export type PayoutMethodConfirmationStatus =
-  | "invalid_id"
-  | "not_found"
-  | "missing_recipient"
-  | "confirmed"
-  | "unconfirmed";
+  "invalid_id" | "not_found" | "missing_recipient" | "confirmed" | "unconfirmed";
 
 /**
  * Result returned by `EmployeeRegistry.confirmPayoutMethod`.

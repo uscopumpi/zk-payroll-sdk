@@ -5,15 +5,15 @@
  * to prevent underfunding and unexpected precision loss across currency conversions.
  */
 
-export type RoundingMode = 'floor' | 'ceil' | 'round' | 'truncate';
+export type SettlementRoundingMode = "floor" | "ceil" | "round" | "truncate";
 
 export type RoundingSafeguardErrorCode =
-  | 'INVALID_AMOUNT'
-  | 'INVALID_DECIMALS'
-  | 'INVALID_EXCHANGE_RATE'
-  | 'EXCESSIVE_DRIFT'
-  | 'CUMULATIVE_DRIFT_EXCEEDED'
-  | 'MISMATCHED_TARGET_AMOUNT';
+  | "INVALID_AMOUNT"
+  | "INVALID_DECIMALS"
+  | "INVALID_EXCHANGE_RATE"
+  | "EXCESSIVE_DRIFT"
+  | "CUMULATIVE_DRIFT_EXCEEDED"
+  | "MISMATCHED_TARGET_AMOUNT";
 
 export interface PayoutRoundingItem {
   id?: string;
@@ -47,7 +47,7 @@ export interface RoundingSafeguardOptions {
   /** Maximum cumulative batch drift in basis points. Default: 10 bps */
   maxBatchDriftBps?: number;
   /** Rounding mode to apply when converting to integer stroops/units. Default: 'round' */
-  roundingMode?: RoundingMode;
+  roundingMode?: SettlementRoundingMode;
   /** Allow zero amounts. Default: false */
   allowZero?: boolean;
 }
@@ -78,9 +78,9 @@ export function computeTargetPayoutAmount(
   sourceDecimals: number,
   targetDecimals: number,
   exchangeRate: number | string,
-  roundingMode: RoundingMode = 'round'
+  roundingMode: SettlementRoundingMode = "round"
 ): { targetAmount: string; precisionLoss: boolean } {
-  const sourceNum = typeof sourceAmount === 'bigint' ? Number(sourceAmount) : Number(sourceAmount);
+  const sourceNum = typeof sourceAmount === "bigint" ? Number(sourceAmount) : Number(sourceAmount);
   const rateNum = Number(exchangeRate);
 
   if (!Number.isFinite(sourceNum) || sourceNum < 0) {
@@ -104,10 +104,10 @@ export function computeTargetPayoutAmount(
   let targetRounded: bigint;
   let hasLoss = false;
 
-  if (roundingMode === 'floor' || roundingMode === 'truncate') {
+  if (roundingMode === "floor" || roundingMode === "truncate") {
     targetRounded = BigInt(Math.floor(rawTarget));
     hasLoss = rawTarget !== Math.floor(rawTarget);
-  } else if (roundingMode === 'ceil') {
+  } else if (roundingMode === "ceil") {
     targetRounded = BigInt(Math.ceil(rawTarget));
     hasLoss = rawTarget !== Math.ceil(rawTarget);
   } else {
@@ -131,11 +131,12 @@ export function validateCrossCurrencyPayoutRounding(
 ): RoundingSafeguardReport {
   const maxItemDriftBps = options.maxItemDriftBps ?? 5;
   const maxBatchDriftBps = options.maxBatchDriftBps ?? 10;
-  const roundingMode = options.roundingMode ?? 'round';
+  const roundingMode = options.roundingMode ?? "round";
   const allowZero = options.allowZero ?? false;
 
   const itemResults: RoundingItemValidationResult[] = [];
-  const reportErrors: Array<{ index?: number; code: RoundingSafeguardErrorCode; message: string }> = [];
+  const reportErrors: Array<{ index?: number; code: RoundingSafeguardErrorCode; message: string }> =
+    [];
 
   let sumSource = 0n;
   let sumComputedTarget = 0n;
@@ -144,29 +145,34 @@ export function validateCrossCurrencyPayoutRounding(
 
   for (let i = 0; i < items.length; i++) {
     const item = items[i];
-    const sourceNum = typeof item.sourceAmount === 'bigint' ? Number(item.sourceAmount) : Number(item.sourceAmount);
+    const sourceNum =
+      typeof item.sourceAmount === "bigint" ? Number(item.sourceAmount) : Number(item.sourceAmount);
     const rateNum = Number(item.exchangeRate);
 
     // Validate parameters
-    if (!Number.isFinite(sourceNum) || (!allowZero && sourceNum <= 0) || (allowZero && sourceNum < 0)) {
+    if (
+      !Number.isFinite(sourceNum) ||
+      (!allowZero && sourceNum <= 0) ||
+      (allowZero && sourceNum < 0)
+    ) {
       itemResults.push({
         index: i,
         id: item.id,
         recipientId: item.recipientId,
         valid: false,
-        computedTargetAmount: '0',
+        computedTargetAmount: "0",
         expectedTargetAmount: item.expectedTargetAmount?.toString(),
         driftBps: 0,
-        deltaAmount: '0',
+        deltaAmount: "0",
         precisionLoss: false,
         error: {
-          code: 'INVALID_AMOUNT',
+          code: "INVALID_AMOUNT",
           message: `Item at index ${i} has invalid source amount: ${item.sourceAmount}`,
         },
       });
       reportErrors.push({
         index: i,
-        code: 'INVALID_AMOUNT',
+        code: "INVALID_AMOUNT",
         message: `Item at index ${i} has invalid source amount: ${item.sourceAmount}`,
       });
       continue;
@@ -183,19 +189,19 @@ export function validateCrossCurrencyPayoutRounding(
         id: item.id,
         recipientId: item.recipientId,
         valid: false,
-        computedTargetAmount: '0',
+        computedTargetAmount: "0",
         expectedTargetAmount: item.expectedTargetAmount?.toString(),
         driftBps: 0,
-        deltaAmount: '0',
+        deltaAmount: "0",
         precisionLoss: false,
         error: {
-          code: 'INVALID_DECIMALS',
+          code: "INVALID_DECIMALS",
           message: `Item at index ${i} has invalid decimal configuration. Decimals must be between 0 and 18.`,
         },
       });
       reportErrors.push({
         index: i,
-        code: 'INVALID_DECIMALS',
+        code: "INVALID_DECIMALS",
         message: `Item at index ${i} has invalid decimal configuration.`,
       });
       continue;
@@ -207,19 +213,19 @@ export function validateCrossCurrencyPayoutRounding(
         id: item.id,
         recipientId: item.recipientId,
         valid: false,
-        computedTargetAmount: '0',
+        computedTargetAmount: "0",
         expectedTargetAmount: item.expectedTargetAmount?.toString(),
         driftBps: 0,
-        deltaAmount: '0',
+        deltaAmount: "0",
         precisionLoss: false,
         error: {
-          code: 'INVALID_EXCHANGE_RATE',
+          code: "INVALID_EXCHANGE_RATE",
           message: `Item at index ${i} has invalid exchange rate: ${item.exchangeRate}`,
         },
       });
       reportErrors.push({
         index: i,
-        code: 'INVALID_EXCHANGE_RATE',
+        code: "INVALID_EXCHANGE_RATE",
         message: `Item at index ${i} has invalid exchange rate: ${item.exchangeRate}`,
       });
       continue;
@@ -241,13 +247,14 @@ export function validateCrossCurrencyPayoutRounding(
     let itemValid = true;
     let itemError: { code: RoundingSafeguardErrorCode; message: string } | undefined;
     let driftBps = 0;
-    let deltaAmount = '0';
+    let deltaAmount = "0";
 
     if (item.expectedTargetAmount !== undefined) {
       const expectedVal = BigInt(item.expectedTargetAmount.toString());
       sumExpectedTarget += expectedVal;
 
-      const diff = computedVal > expectedVal ? computedVal - expectedVal : expectedVal - computedVal;
+      const diff =
+        computedVal > expectedVal ? computedVal - expectedVal : expectedVal - computedVal;
       deltaAmount = diff.toString();
 
       if (expectedVal > 0n) {
@@ -263,12 +270,12 @@ export function validateCrossCurrencyPayoutRounding(
       if (driftBps > maxItemDriftBps) {
         itemValid = false;
         itemError = {
-          code: 'EXCESSIVE_DRIFT',
+          code: "EXCESSIVE_DRIFT",
           message: `Item at index ${i} exceeds maximum drift threshold: observed ${driftBps} bps, limit is ${maxItemDriftBps} bps.`,
         };
         reportErrors.push({
           index: i,
-          code: 'EXCESSIVE_DRIFT',
+          code: "EXCESSIVE_DRIFT",
           message: itemError.message,
         });
       }
@@ -301,7 +308,7 @@ export function validateCrossCurrencyPayoutRounding(
 
     if (cumulativeDriftBps > maxBatchDriftBps) {
       reportErrors.push({
-        code: 'CUMULATIVE_DRIFT_EXCEEDED',
+        code: "CUMULATIVE_DRIFT_EXCEEDED",
         message: `Batch cumulative drift of ${cumulativeDriftBps} bps exceeds maximum allowed limit of ${maxBatchDriftBps} bps.`,
       });
     }

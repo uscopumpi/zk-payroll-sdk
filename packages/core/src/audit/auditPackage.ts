@@ -55,6 +55,8 @@ export interface SelectiveDisclosureAuditPackage {
   artifactManifestHash?: string;
   integrityHash: string;
   metadata?: Record<string, unknown>;
+  /** Retention policy applied to this package (resolved against the defaults when omitted). */
+  retentionPolicy?: AuditRetentionPolicy;
 }
 
 export interface AuditRetentionPolicy {
@@ -94,7 +96,7 @@ export interface CreateAuditPackageInput {
 export interface AuditPackageVerificationResult {
   valid: boolean;
   errors: string[];
-  z }
+}
 
 export const AUDIT_PACKAGE_DEFAULT_RETENTION_DAYS = 365;
 
@@ -112,6 +114,7 @@ export async function createSelectiveDisclosureAuditPackage(
     verificationKeys: input.verificationKeys,
     artifactManifestHash: input.artifactManifestHash,
     metadata: input.metadata,
+    retentionPolicy: input.retentionPolicy,
   };
 
   const errors = validateAuditPackageShape({ ...auditPackage, integrityHash: "" }, true);
@@ -181,11 +184,9 @@ export function applyDisclosureScope(
   return commitments;
 }
 
-export function resolveAuditRetentionPolicy(
-  policy?: AuditRetentionPolicy
-): AuditRetentionPolicy {
+export function resolveAuditRetentionPolicy(policy?: AuditRetentionPolicy): AuditRetentionPolicy {
   const resolved: AuditRetentionPolicy = {
-    retentionDays: policy?.retentionDays ?? AUDIT_PACKAGE_DEFAULT_RETENTION_DAYS
+    retentionDays: policy?.retentionDays ?? AUDIT_PACKAGE_DEFAULT_RETENTION_DAYS,
   };
 
   if (policy?.expiresAt !== undefined) resolved.expiresAt = policy.expiresAt;
@@ -206,7 +207,10 @@ export function validateAuditRetentionPolicy(policy: AuditRetentionPolicy): stri
     errors.push("retentionDays must be a positive number.");
   }
 
-  if (policy.expiresAt !== undefined && (!Number.isFinite(policy.expiresAt) || policy.expiresAt <= 0)) {
+  if (
+    policy.expiresAt !== undefined &&
+    (!Number.isFinite(policy.expiresAt) || policy.expiresAt <= 0)
+  ) {
     errors.push("expiresAt must be a positive unix timestamp.");
   }
 
@@ -287,8 +291,7 @@ export function assertAuditPackageDeletable(
 
 export async function calculateAuditPackageIntegrityHash(
   auditPackage:
-    | Omit<SelectiveDisclosureAuditPackage, "integrityHash">
-    | SelectiveDisclosureAuditPackage
+    Omit<SelectiveDisclosureAuditPackage, "integrityHash"> | SelectiveDisclosureAuditPackage
 ): Promise<string> {
   const { integrityHash: _integrityHash, ...hashable } =
     auditPackage as SelectiveDisclosureAuditPackage;

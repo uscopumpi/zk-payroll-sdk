@@ -6,12 +6,12 @@
  */
 
 export type PolicyEffectiveDateErrorCode =
-  | 'INVALID_DATE_FORMAT'
-  | 'INVALID_DATE_RANGE'
-  | 'RETROACTIVE_LIMIT_EXCEEDED'
-  | 'RETROACTIVE_DISALLOWED'
-  | 'ADVANCE_NOTICE_INSUFFICIENT'
-  | 'POLICY_WINDOW_COLLISION';
+  | "INVALID_DATE_FORMAT"
+  | "INVALID_DATE_RANGE"
+  | "RETROACTIVE_LIMIT_EXCEEDED"
+  | "RETROACTIVE_DISALLOWED"
+  | "ADVANCE_NOTICE_INSUFFICIENT"
+  | "POLICY_WINDOW_COLLISION";
 
 export interface PayrollPolicyCandidate {
   policyId: string;
@@ -72,9 +72,7 @@ export function validatePolicyEffectiveDate(
   const allowRetroactive = options.allowRetroactive ?? true;
   const minimumNoticeDays = options.minimumNoticeDays ?? 0;
 
-  const nowMs = options.currentDate
-    ? new Date(options.currentDate).getTime()
-    : Date.now();
+  const nowMs = options.currentDate ? new Date(options.currentDate).getTime() : Date.now();
 
   const violations: PolicyEffectiveDateViolation[] = [];
   const warnings: string[] = [];
@@ -85,9 +83,9 @@ export function validatePolicyEffectiveDate(
 
   if (Number.isNaN(fromMs)) {
     violations.push({
-      code: 'INVALID_DATE_FORMAT',
+      code: "INVALID_DATE_FORMAT",
       message: `Invalid effectiveFrom date: ${policy.effectiveFrom}`,
-      field: 'effectiveFrom',
+      field: "effectiveFrom",
     });
     return {
       valid: false,
@@ -110,15 +108,15 @@ export function validatePolicyEffectiveDate(
 
     if (Number.isNaN(toMs)) {
       violations.push({
-        code: 'INVALID_DATE_FORMAT',
+        code: "INVALID_DATE_FORMAT",
         message: `Invalid effectiveTo date: ${policy.effectiveTo}`,
-        field: 'effectiveTo',
+        field: "effectiveTo",
       });
     } else if (toMs <= fromMs) {
       violations.push({
-        code: 'INVALID_DATE_RANGE',
+        code: "INVALID_DATE_RANGE",
         message: `effectiveTo (${toDate.toISOString()}) must be strictly after effectiveFrom (${fromDate.toISOString()}).`,
-        field: 'effectiveTo',
+        field: "effectiveTo",
       });
     }
   }
@@ -131,15 +129,15 @@ export function validatePolicyEffectiveDate(
   if (isRetroactive) {
     if (!allowRetroactive) {
       violations.push({
-        code: 'RETROACTIVE_DISALLOWED',
+        code: "RETROACTIVE_DISALLOWED",
         message: `Retroactive policy updates are not permitted under current configuration.`,
-        field: 'effectiveFrom',
+        field: "effectiveFrom",
       });
     } else if (retroactiveDays > maxRetroactiveDays) {
       violations.push({
-        code: 'RETROACTIVE_LIMIT_EXCEEDED',
+        code: "RETROACTIVE_LIMIT_EXCEEDED",
         message: `Policy is backdated by ${retroactiveDays} days, exceeding the maximum allowed limit of ${maxRetroactiveDays} days.`,
-        field: 'effectiveFrom',
+        field: "effectiveFrom",
       });
     } else {
       warnings.push(
@@ -150,9 +148,9 @@ export function validatePolicyEffectiveDate(
     const noticeDays = Math.floor((fromMs - nowMs) / (1000 * 60 * 60 * 24));
     if (noticeDays < minimumNoticeDays) {
       violations.push({
-        code: 'ADVANCE_NOTICE_INSUFFICIENT',
+        code: "ADVANCE_NOTICE_INSUFFICIENT",
         message: `Policy requires at least ${minimumNoticeDays} days advance notice before activation. Current notice is ${noticeDays} day(s).`,
-        field: 'effectiveFrom',
+        field: "effectiveFrom",
       });
     }
   }
@@ -164,7 +162,7 @@ export function validatePolicyEffectiveDate(
     }
 
     // Match on scope and policy type
-    const sameScope = (existing.scopeId || '') === (policy.scopeId || '');
+    const sameScope = (existing.scopeId || "") === (policy.scopeId || "");
     const sameType = existing.policyType === policy.policyType;
 
     if (!sameScope || !sameType) {
@@ -182,7 +180,7 @@ export function validatePolicyEffectiveDate(
 
     if (overlaps) {
       violations.push({
-        code: 'POLICY_WINDOW_COLLISION',
+        code: "POLICY_WINDOW_COLLISION",
         message: `Policy window conflicts with existing active policy "${existing.policyId}" of type "${existing.policyType}".`,
         conflictingPolicyId: existing.policyId,
       });

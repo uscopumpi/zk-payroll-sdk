@@ -93,12 +93,7 @@ export class PaymentExecutorClient extends BaseContractWrapper {
     ];
 
     try {
-      const result = await this.invoke(
-        "execute",
-        args,
-        signer,
-        network ?? this.networkPassphrase
-      );
+      const result = await this.invoke("execute", args, signer, network ?? this.networkPassphrase);
       return { txHash: this.scValToHex(result) };
     } catch (error) {
       throw this.buildExecutionError(request, error);
@@ -198,9 +193,7 @@ export class PaymentExecutorClient extends BaseContractWrapper {
     return Number(result.u32());
   }
 
-  private validateExecuteRequest(
-    request: ExecutePaymentRequest
-  ): PayoutFailureDiagnostics | null {
+  private validateExecuteRequest(request: ExecutePaymentRequest): PayoutFailureDiagnostics | null {
     if (!request.recipient || !this.isValidAddress(request.recipient)) {
       return {
         retryable: false,
@@ -217,7 +210,7 @@ export class PaymentExecutorClient extends BaseContractWrapper {
         action: "Provide a valid stellar asset address.",
       };
     }
-    if (request.amount == null || request.amount <= 0n) {
+    if (request.amount === null || request.amount === undefined || request.amount <= 0n) {
       return {
         retryable: false,
         code: "INVALID_AMOUNT",
@@ -262,7 +255,11 @@ export class PaymentExecutorClient extends BaseContractWrapper {
       };
     }
 
-    if (lower.includes("unauthorized") || lower.includes("not authorized") || lower.includes("auth")) {
+    if (
+      lower.includes("unauthorized") ||
+      lower.includes("not authorized") ||
+      lower.includes("auth")
+    ) {
       return {
         retryable: false,
         code: "UNAUTHORIZED",

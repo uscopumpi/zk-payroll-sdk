@@ -54,7 +54,9 @@ describe("Payroll Responsibility Delegation Audit (#708)", () => {
         responsibilities: [],
       });
       expect(result.valid).toBe(false);
-      expect(result.errors).toContain("Responsibilities list must contain at least one valid responsibility.");
+      expect(result.errors).toContain(
+        "Responsibilities list must contain at least one valid responsibility."
+      );
     });
   });
 
@@ -70,7 +72,7 @@ describe("Payroll Responsibility Delegation Audit (#708)", () => {
       const decision = auditPayrollResponsibilityDelegation(request, validRecord, baseNow);
       expect(decision.authorized).toBe(true);
       expect(decision.denialCode).toBeUndefined();
-      expect(decision.reason).toContain("is authorized for \"BATCH_SUBMISSION\"");
+      expect(decision.reason).toContain('is authorized for "BATCH_SUBMISSION"');
     });
 
     it("denies when claimed responsibility is not in granted list (failure path)", () => {
@@ -84,7 +86,7 @@ describe("Payroll Responsibility Delegation Audit (#708)", () => {
       const decision = auditPayrollResponsibilityDelegation(request, validRecord, baseNow);
       expect(decision.authorized).toBe(false);
       expect(decision.denialCode).toBe("UNAUTHORIZED_RESPONSIBILITY");
-      expect(decision.reason).toContain("does not include responsibility \"SALARY_UPDATE\"");
+      expect(decision.reason).toContain('does not include responsibility "SALARY_UPDATE"');
     });
 
     it("denies when actor is not the designated delegate (failure path)", () => {
@@ -178,9 +180,9 @@ describe("Payroll Responsibility Delegation Audit (#708)", () => {
         claimedResponsibility: "EMERGENCY_ACTIONS",
       };
 
-      expect(() =>
-        assertPayrollResponsibilityDelegation(invalidReq, validRecord, baseNow)
-      ).toThrow(PayrollDelegationAuditError);
+      expect(() => assertPayrollResponsibilityDelegation(invalidReq, validRecord, baseNow)).toThrow(
+        PayrollDelegationAuditError
+      );
     });
   });
 
