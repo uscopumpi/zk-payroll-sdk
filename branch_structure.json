@@ -1,0 +1,18 @@
+{
+  "default_branch": "dev",
+  "branches": [
+    "dev",
+    "feat/704-draft-payroll-comparison-snapshots",
+    "origin"
+  ],
+  "parent": {
+    "dev": null,
+    "feat/704-draft-payroll-comparison-snapshots": "dev",
+    "origin": "dev"
+  },
+  "order": [
+    "dev",
+    "feat/704-draft-payroll-comparison-snapshots",
+    "origin"
+  ]
+}
