@@ -87,7 +87,12 @@ export class TreasuryBalanceBufferError extends Error {
   public readonly asset: string;
   public readonly shortfallAmount: bigint;
 
-  constructor(message: string, code: TreasuryBufferDenialCode, asset: string, shortfallAmount: bigint = 0n) {
+  constructor(
+    message: string,
+    code: TreasuryBufferDenialCode,
+    asset: string,
+    shortfallAmount: bigint = 0n
+  ) {
     super(message);
     this.name = "TreasuryBalanceBufferError";
     this.code = code;

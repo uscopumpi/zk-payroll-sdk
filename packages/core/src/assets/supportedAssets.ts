@@ -249,10 +249,7 @@ export interface AssetAvailabilityResult {
  * Machine-readable codes describing why an asset is available or not.
  */
 export type AssetAvailabilityCode =
-  | "AVAILABLE"
-  | "ASSET_NOT_FOUND"
-  | "ASSET_DISABLED"
-  | "ASSET_MISSING_CONTRACT";
+  "AVAILABLE" | "ASSET_NOT_FOUND" | "ASSET_DISABLED" | "ASSET_MISSING_CONTRACT";
 
 /**
  * Options for `checkAssetAvailability`.
@@ -294,10 +291,7 @@ export function checkAssetAvailability(
   options: AssetAvailabilityOptions = {}
 ): AssetAvailabilityResult {
   if (!Array.isArray(assets)) {
-    throw new ValidationError(
-      "Assets must be an array of normalized supported assets",
-      "assets"
-    );
+    throw new ValidationError("Assets must be an array of normalized supported assets", "assets");
   }
 
   const normalizedSymbol = normalizeAssetSymbol(symbol);

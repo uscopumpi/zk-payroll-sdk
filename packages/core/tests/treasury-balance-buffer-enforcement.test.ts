@@ -102,7 +102,9 @@ describe("Treasury Balance Buffer Enforcement (#706)", () => {
 
       const result = enforceTreasuryBalanceBuffer(emergencyRequest);
       expect(result.compliant).toBe(true);
-      expect(result.warnings).toContain("Treasury buffer check bypassed via authorized emergency override.");
+      expect(result.warnings).toContain(
+        "Treasury buffer check bypassed via authorized emergency override."
+      );
     });
 
     it("rejects emergency override for unauthorized role (edge case)", () => {

@@ -57,9 +57,7 @@ export function attachNoteHash<T extends Record<string, unknown>>(
 
 /** Reason a note hash verification attempt failed. */
 export type NoteHashVerificationFailureCode =
-  | "MISSING_NOTE_AND_HASH"
-  | "INVALID_EXPECTED_NOTE_HASH"
-  | "NOTE_HASH_MISMATCH";
+  "MISSING_NOTE_AND_HASH" | "INVALID_EXPECTED_NOTE_HASH" | "NOTE_HASH_MISMATCH";
 
 /** Structured failure descriptor for a failed verification attempt. */
 export interface NoteHashVerificationFailure {
@@ -125,8 +123,7 @@ export async function verifyNoteHash(
       verified: false,
       failure: {
         code: "INVALID_EXPECTED_NOTE_HASH",
-        message:
-          "The expected `noteHash` must be a 64-character lowercase hex SHA-256 digest.",
+        message: "The expected `noteHash` must be a 64-character lowercase hex SHA-256 digest.",
       },
     };
   }

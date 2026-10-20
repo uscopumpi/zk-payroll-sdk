@@ -124,8 +124,8 @@ export function createApprovalSnapshot(
   // Create deep frozen copy of draft to ensure immutability
   const frozenDraft = Object.freeze({
     ...draft,
-    entries: Object.freeze(draft.entries.map(entry => Object.freeze({ ...entry }))),
-  });
+    entries: Object.freeze(draft.entries.map((entry) => Object.freeze({ ...entry }))),
+  }) as unknown as PayrollDraft;
 
   const metadata: ApprovalMetadata = {
     approvedAt: now,
@@ -195,10 +195,7 @@ export function assertValidApprovalSnapshot(snapshot: DraftApprovalSnapshot): vo
  * @param snapshot - Optional snapshot to verify against
  * @returns true if draft is approved and locked
  */
-export function isDraftApproved(
-  draft: PayrollDraft,
-  snapshot?: DraftApprovalSnapshot
-): boolean {
+export function isDraftApproved(draft: PayrollDraft, snapshot?: DraftApprovalSnapshot): boolean {
   if (!snapshot) {
     return false;
   }
@@ -301,7 +298,7 @@ export function deserializeApprovalSnapshot(json: string): DraftApprovalSnapshot
   } catch (error) {
     throw new ApprovalSnapshotError(
       "INVALID_SNAPSHOT_STATE",
-      `Failed to deserialize approval snapshot: ${error instanceof Error ? error.message : 'unknown error'}`,
+      `Failed to deserialize approval snapshot: ${error instanceof Error ? error.message : "unknown error"}`,
       "snapshot"
     );
   }

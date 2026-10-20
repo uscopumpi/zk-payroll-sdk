@@ -52,11 +52,7 @@ export type DraftLockErrorCode =
  * Structured warning codes for draft lock inspection.
  */
 export type DraftLockWarningCode =
-  | "MIXED_ASSETS"
-  | "LARGE_DRAFT"
-  | "EMPTY_NOTE"
-  | "EXPIRING_SOON"
-  | "CUSTOM_WARNING";
+  "MIXED_ASSETS" | "LARGE_DRAFT" | "EMPTY_NOTE" | "EXPIRING_SOON" | "CUSTOM_WARNING";
 
 /**
  * A blocking issue preventing a draft from being locked.
@@ -191,9 +187,10 @@ function redactLabel(label?: string): string | undefined {
   return `${clean.slice(0, 3)}...${clean.slice(-3)}`;
 }
 
-function coerceToDraft(
-  input: PayrollDraft | PayrollDraftEntry[] | DraftBuilder | unknown
-): { draft: PayrollDraft; isBuilder: boolean } {
+function coerceToDraft(input: PayrollDraft | PayrollDraftEntry[] | DraftBuilder | unknown): {
+  draft: PayrollDraft;
+  isBuilder: boolean;
+} {
   if (input instanceof DraftBuilder) {
     try {
       const draft = input.build();
@@ -224,7 +221,12 @@ function coerceToDraft(
     };
   }
 
-  if (input && typeof input === "object" && "entries" in input && Array.isArray((input as PayrollDraft).entries)) {
+  if (
+    input &&
+    typeof input === "object" &&
+    "entries" in input &&
+    Array.isArray((input as PayrollDraft).entries)
+  ) {
     return { draft: input as PayrollDraft, isBuilder: false };
   }
 
@@ -297,7 +299,11 @@ export function inspectDraftLock(
   const lockedAt = options.lockedAt ?? (isAlreadyLocked ? now : undefined);
   const expiresAt = options.expiresAt;
   const lockedBy = options.lockedBy?.trim();
-  const redactedLockedBy = lockedBy ? (shouldRedact ? maskRecipientIdentifier(lockedBy) : lockedBy) : undefined;
+  const redactedLockedBy = lockedBy
+    ? shouldRedact
+      ? maskRecipientIdentifier(lockedBy)
+      : lockedBy
+    : undefined;
 
   let isExpired = false;
   if (expiresAt !== undefined && expiresAt > 0 && now >= expiresAt) {

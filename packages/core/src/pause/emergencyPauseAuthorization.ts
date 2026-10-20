@@ -16,11 +16,7 @@
  * Functional subsystems that can be halted under emergency pause controls.
  */
 export type EmergencyPauseScope =
-  | "ALL"
-  | "PAYROLL_ONLY"
-  | "DISBURSEMENTS_ONLY"
-  | "DEPOSITS_ONLY"
-  | "PROOF_VERIFICATION_ONLY";
+  "ALL" | "PAYROLL_ONLY" | "DISBURSEMENTS_ONLY" | "DEPOSITS_ONLY" | "PROOF_VERIFICATION_ONLY";
 
 export const ALL_EMERGENCY_PAUSE_SCOPES: readonly EmergencyPauseScope[] = [
   "ALL",
@@ -154,7 +150,8 @@ export function authorizeEmergencyPayrollPause(
       scope: request?.scope ?? "ALL",
       severity: request?.severity ?? "HIGH",
       denialCode: "INVALID_REQUEST",
-      reason: "Missing required fields in emergency pause request (requester, requesterRole, or scope).",
+      reason:
+        "Missing required fields in emergency pause request (requester, requesterRole, or scope).",
       warnings: [],
     };
   }
@@ -224,7 +221,8 @@ export function authorizeEmergencyPayrollPause(
   }
 
   // 5. Check Co-signing Requirements for Global or Critical Severity
-  const needsCoSigner = requireCoSigner && (request.scope === "ALL" || request.severity === "CRITICAL");
+  const needsCoSigner =
+    requireCoSigner && (request.scope === "ALL" || request.severity === "CRITICAL");
   const rawCoSigners = request.coSigners ?? [];
 
   if (needsCoSigner) {
@@ -248,7 +246,8 @@ export function authorizeEmergencyPayrollPause(
           scope: request.scope,
           severity: request.severity,
           denialCode: "SELF_CO_SIGN_PROHIBITED",
-          reason: "Requester cannot serve as their own co-signer for emergency pause authorization.",
+          reason:
+            "Requester cannot serve as their own co-signer for emergency pause authorization.",
           warnings,
         };
       }
@@ -285,7 +284,9 @@ export function authorizeEmergencyPayrollPause(
   }
 
   if (request.severity === "CRITICAL") {
-    warnings.push("CRITICAL severity emergency pause will immediately halt contract operations upon submission.");
+    warnings.push(
+      "CRITICAL severity emergency pause will immediately halt contract operations upon submission."
+    );
   }
 
   return {

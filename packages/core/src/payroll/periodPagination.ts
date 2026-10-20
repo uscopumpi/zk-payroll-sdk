@@ -1,8 +1,8 @@
-export interface PayrollPeriodRecord {
+export interface PayrollPeriodPaginationRecord {
   periodId: string;
   [key: string]: unknown;
 }
-export interface PayrollPeriodPage<T extends PayrollPeriodRecord> {
+export interface PayrollPeriodPage<T extends PayrollPeriodPaginationRecord> {
   items: readonly T[];
   nextCursor?: string;
 }
@@ -17,7 +17,7 @@ export interface PayrollPeriodPaginationOptions {
   cursor?: string;
   signal?: AbortSignal;
 }
-export type PayrollPeriodPageFetcher<T extends PayrollPeriodRecord> = (
+export type PayrollPeriodPageFetcher<T extends PayrollPeriodPaginationRecord> = (
   request: PayrollPeriodPageRequest
 ) => Promise<PayrollPeriodPage<T>>;
 
@@ -30,7 +30,7 @@ function abortError(): Error {
   return error;
 }
 
-function assertPage<T extends PayrollPeriodRecord>(
+function assertPage<T extends PayrollPeriodPaginationRecord>(
   value: unknown
 ): asserts value is PayrollPeriodPage<T> {
   if (!value || typeof value !== "object" || !Array.isArray((value as PayrollPeriodPage<T>).items))
@@ -54,7 +54,7 @@ function resolveOptions(options: PayrollPeriodPaginationOptions): {
 }
 
 /** Iterates cursor pages with cancellation and repeated-cursor protection. */
-export async function* iteratePayrollPeriods<T extends PayrollPeriodRecord>(
+export async function* iteratePayrollPeriods<T extends PayrollPeriodPaginationRecord>(
   fetchPage: PayrollPeriodPageFetcher<T>,
   options: PayrollPeriodPaginationOptions = {}
 ): AsyncGenerator<T, void, undefined> {
@@ -76,7 +76,7 @@ export async function* iteratePayrollPeriods<T extends PayrollPeriodRecord>(
   throw new Error("Payroll period pagination exceeded the configured page limit.");
 }
 
-export async function collectPayrollPeriods<T extends PayrollPeriodRecord>(
+export async function collectPayrollPeriods<T extends PayrollPeriodPaginationRecord>(
   fetchPage: PayrollPeriodPageFetcher<T>,
   options: PayrollPeriodPaginationOptions = {}
 ): Promise<T[]> {

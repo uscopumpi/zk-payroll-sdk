@@ -147,7 +147,12 @@ describe("Payroll Recipient Lock Status Reader (#512)", () => {
         symbolEntry("payroll_id", nativeToScVal("batch-exec-2024-05", { type: "string" })),
         symbolEntry("locked_at", nativeToScVal("1700000000", { type: "u64" })),
         symbolEntry("unlock_at", nativeToScVal("1700007200", { type: "u64" })),
-        symbolEntry("locked_by", nativeToScVal("GOPERATORADDR1234567890123456789012345678901234567890123456", { type: "string" })),
+        symbolEntry(
+          "locked_by",
+          nativeToScVal("GOPERATORADDR1234567890123456789012345678901234567890123456", {
+            type: "string",
+          })
+        ),
         symbolEntry("lock_reason", nativeToScVal("batch_in_flight", { type: "string" })),
       ]);
 
@@ -329,14 +334,22 @@ describe("Payroll Recipient Lock Status Reader (#512)", () => {
         unlockAt: 2000,
       };
 
-      const statusBeforeExpiry = evaluateRecipientLockStatus("GEXPIRINGRECIPIENT", [expiringExecution], {
-        now: 1500,
-      });
+      const statusBeforeExpiry = evaluateRecipientLockStatus(
+        "GEXPIRINGRECIPIENT",
+        [expiringExecution],
+        {
+          now: 1500,
+        }
+      );
       expect(statusBeforeExpiry.isLocked).toBe(true);
 
-      const statusAfterExpiry = evaluateRecipientLockStatus("GEXPIRINGRECIPIENT", [expiringExecution], {
-        now: 2500,
-      });
+      const statusAfterExpiry = evaluateRecipientLockStatus(
+        "GEXPIRINGRECIPIENT",
+        [expiringExecution],
+        {
+          now: 2500,
+        }
+      );
       expect(statusAfterExpiry.isLocked).toBe(false);
     });
   });
@@ -460,7 +473,9 @@ describe("Payroll Recipient Lock Status Reader (#512)", () => {
         symbolEntry("payroll_id", nativeToScVal("run-service-01", { type: "string" })),
       ]);
 
-      ((mockContractWrapper as unknown as Record<string, jest.Mock>)["invoke"]).mockResolvedValue(mockResult);
+      (mockContractWrapper as unknown as Record<string, jest.Mock>)["invoke"].mockResolvedValue(
+        mockResult
+      );
 
       const status = await service.getRecipientLockStatus(TEST_RECIPIENT_1, TEST_EMPLOYER);
       expect(status.isLocked).toBe(true);

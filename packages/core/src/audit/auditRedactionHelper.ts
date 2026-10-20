@@ -1,1 +1,190 @@
-LyoqCiAqIFNlbnNpdGl2ZSBmaWVsZHMgZGVmYXVsdCBtYXNrIHNldCBmb3IgYXVkaXQgcGFja2FnZSByZWRhY3Rpb24uCiAqLwpleHBvcnQgY29uc3QgREVGQVVMVF9TRU5TSVRJVkVfS0VZUzogc3RyaW5nW10gPSBbCiAgInZpZXdLZXkiLAogICJ2aWV3aW5nS2V5IiwKICAicHJpdmF0ZUtleSIsCiAgInNlY3JldCIsCiAgInNlY3JldEtleSIsCiAgInNhbGFyeUFtb3VudCIsCiAgInNzbiIsCiAgInRheElkIiwKICAiY3JlZGl0Q2FyZCIsCiAgImJhbmthY2NvdW50IiwKXTsKCi eightKICogQWRkaXRpb25hbCBzZW5zaXRpdmUga2V5cyB0aGF0IGFyZSBhbHdheXMgcmVkYWN0ZWQgcmVnYXJkbGVzcyBvZiBvcHRpb25zLgogKi8KZXhwb3J0IGNvbnN0IE1BTkRBVE9SWV9TRU5TSVRJVkVfS0VZUzogc3RyaW5nW10gPSBbCiAgInByaXZhdGVLZXkiLAogICJzZWNyZXRLZXkiLAogICJ2aWV3S2V5IiwKXTsKCi eightKICogTWF4aW11bSBhbGxvd2VkIGRlcHRoIGZvciByZWN1cnNpdmUgcmVkYWN0aW9uIHRvIHByZXZlbnQgc3RhY2sgb3ZlcmZsb3cuCiAqLwpleHBvcnQgY29uc3QgTUFYX1JFREFDVElPTl9ERVBUSDogbnVtYmVyID0gNTA7CgpleHBvcnQgaW50ZXJmYWNlIFJlZGFjdGlvbk1hc2tPcHRpb25zIHsKICAvKiogQWRkaXRpb25hbCBrZXkgbmFtZXMgdG8gc2NydWIgZnJvbSBhdWRpdCBwYWNrYWdlcy4gKi8KICBhZGRpdGlvbmFsS2V5cz86IHN0cmluZ1tdOwogIC8qKiBDdXN0b20gcmVwbGFjZW1lbnQgcGxhY2Vob2xkZXIgdGV4dCAoZGVmYXVsdDogIltSRURBQ1RFRF0iKS4gKi8KICBwbGFjZWhvbGRlcj86IHN0cmluZzsKICAvKiogV2hldGhlciB0byByZWRhY3QgcmVjdXJzaXZlbHkgdGhyb3VnaCBuZXN0ZWQgb2JqZWN0cyBhbmQgYXJyYXlzIChkZWZhdWx0OiB0cnVlKS4gKi8KICByZWN1cnNpdmU/OiBib29sZWFuOwogIC8qKiBNYXhpbXVtIHJlY3Vyc2lvbiBkZXB0aCBiZWZvcmUgcmVkYWN0aW9uIGZhaWxzIGNsb3NlZCAoZGVmYXVsdDogNTApLiAqLwogIG1heERlcHRoPzogbnVtYmVyOwogIC8qKiBXaGV0aGVyIHRvIHRocm93IG9uIGludmFsaWQgb3B0aW9ucyAobm9uLXN0cmluZyBrZXlzLCBldGMuKS4gKi8KICBzdHJpY3Q/OiBib29sZWFuOwp9CgpleHBvcnQgaW50ZXJmYWNlIEF1ZGl0UGFja2FnZVJlZGFjdGlvblJlc3VsdDxUID0gdW5rbm93bj4gewogIHJlZGFjdGVkRGF0YTogVDsKICByZWRhY3RlZEZpZWxkQ291bnQ6IG51bWJlcjsKICByZWRhY3RlZEtleXM6IHN0cmluZ1tdOwogIC8qKiBUcnVlIHdoZW4gcmVkYWN0aW9uIGhpdCB0aGUgZGVwdGggbGltaXQgYW5kIGZhaWxlZCBjbG9zZWQuICovCiAgdHJ1bmNhdGVkOiBib29sZWFuOwogIC8qKiBUcnVlIHdoZW4gYSBjeWNsaWMgcmVmZXJlbmNlIHdhcyBkZXRlY3RlZCBhbmQgcmVkYWN0ZWQuICovCiAgY3ljbGVEZXRlY3RlZDogYm9vbGVhbjsKfQoKZXhwb3J0IGNsYXNzIEF1ZGl0UmVkYWN0aW9uRXJyb3IgZXh0ZW5kcyBFcnJvciB7CiAgcHVibGljIHJlYWRvbmx5IGNvZGU6IHN0cmluZzsKCiAgY29uc3RydWN0b3IobWVzc2FnZTogc3RyaW5nLCBjb2RlID0gIkFVRElUX1JFREFDVElPTl9FUlJPUiIpIHsKICAgIHN1cGVyKG1lc3NhZ2UpOwogICAgdGhpcy5uYW1lID0gIkF1ZGl0UmVkYWN0aW9uRXJyb3IiOwogICAgdGhpcy5jb2RlID0gY29kZTsKICB9Cn0KCi eightKICogSGVscGVyIGNsYXNzIGZvciByZWRhY3Rpbmcgc2Vuc2l0aXZlIHByaXZhY3ktcHJlc2VydmluZyBmaWVsZHMgZnJvbSBhdWRpdCBwYWNrYWdlcwogKiBiZWZvcmUgdGhleSBhcmUgbG9nZ2VkLCBleHBvcnRlZCwgb3IgcmVuZGVyZWQgaW4gVUkgaW50ZXJmYWNlcy4KICovCmV4cG9ydCBjbGFzcyBBdWRpdFBhY2thZ2VSZWRhY3RvciB7CiAgcHJpdmF0ZSByZWFkb25seSBzZW5zaXRpdmVLZXlzOiBTZXQ8c3RyaW5nPjsKICBwcml2YXRlIHJlYWRvbmx5IHBsYWNlaG9sZGVyOiBzdHJpbmc7CiAgcHJpdmF0ZSByZWFkb25seSByZWN1cnNpdmU6IGJvb2xlYW47CiAgcHJpdmF0ZSByZWFkb25seSBtYXhEZXB0aDogbnVtYmVyOwoKICBjb25zdHJ1Y3RvcihvcHRpb25zPzogUmVkYWN0aW9uTWFza09wdGlvbnMpIHsKICAgIGNvbnN0IGFkZGl0aW9uYWwgPSBvcHRpb25zPy5hZGRpdGlvbmFsS2V5cyA/PyBbXTsKICAgIGlmICghQXJyYXkuaXNBcnJheShhZGRpdGlvbmFsKSkgewogICAgICB0aHJvdyBuZXcgQXVkaXRSZWRhY3Rpb25FcnJvcigKICAgICAgICAiUmVkYWN0aW9uIG9wdGlvbiAnYWRkaXRpb25hbEtleXMnIG11c3QgYmUgYW4gYXJyYXkgb2Ygc3RyaW5ncy4iLAogICAgICAgICJBVURJVF9SRURBQ1RJT05fSU5WQUxJRF9PUFRJT05TIgogICAgICApOwogICAgfQogICAgZm9yIChjb25zdCBrZXkgb2YgYWRkaXRpb25hbCkgewogICAgICBpZiAodHlwZW9mIGtleSAhPT0gInN0cmluZyIgfHwga2V5LnRyaW0oKS5sZW5ndGggPT09IDApIHsKICAgICAgICB0aHJvdyBuZXcgQXVkaXRSZWRhY3Rpb25FcnJvcigKICAgICAgICAgICJSZWRhY3Rpb24gb3B0aW9uICdhZGRpdGlvbmFsS2V5cycgbXVzdCBjb250YWluIG9ubHkgbm9uLWVtcHR5IHN0cmluZ3MuIiwKICAgICAgICAgICJBVURJVF9SRURBQ1RJT05fSU5WQUxJRF9PUFRJT05TIgogICAgICAgICk7CiAgICAgIH0KICAgIH0KCiAgICBjb25zdCBwbGFjZWhvbGRlciA9IG9wdGlvbnM/LnBsYWNlaG9sZGVyID8/ICJbUkVEQUNURURdIjsKICAgIGlmICh0eXBlb2YgcGxhY2Vob2xkZXIgIT09ICJzdHJpbmciKSB7CiAgICAgIHRocm93IG5ldyBBdWRpdFJlZGFjdGlvbkVycm9yKAogICAgICAgICJSZWRhY3Rpb24gb3B0aW9uICdwbGFjZWhvbGRlcicgbXVzdCBiZSBhIHN0cmluZy4iLAogICAgICAgICJBVURJVF9SRURBQ1RJT05fSU5WQUxJRF9PUFRJT05TIgogICAgICApOwogICAgfQoKICAgIGNvbnN0IG1heERlcHRoID0gb3B0aW9ucz8ubWF4RGVwdGggPz8gTUFYX1JFREFDVElPTl9ERVBUSDsKICAgIGlmICghTnVtYmVyLmlzSW50ZWdlcihtYXhEZXB0aCkgfHwgbWF4RGVwdGggPCAwKSB7CiAgICAgIHRocm93IG5ldyBBdWRpdFJlZGFjdGlvbkVycm9yKAogICAgICAgICJSZWRhY3Rpb24gb3B0aW9uICdtYXhEZXB0aCcgbXVzdCBiZSBhIG5vbi1uZWdhdGl2ZSBpbnRlZ2VyLiIsCiAgICAgICAgIkFVRElUX1JFREFDVElPTl9JTlZBTElEX09QVElPTlMiCiAgICAgICk7CiAgICB9CgogICAgY29uc3Qga2V5cyA9IFsKICAgICAgLi4uREVGQVVMVF9TRU5TSVRJVkVfS0VZUywKICAgICAgLi4uTUFOREFUT1JZX1NFTlNJVElWRV9LRVlTLAogICAgICAuLi5hZGRpdGlvbmFsLAogICAgXTsKICAgIHRoaXMuc2Vuc2l0aXZlS2V5cyA9IG5ldyBTZXQoa2V5cy5tYXAoKGspID0+IGsubG93ZXJDYXNlKCkpKTsKICAgIHRoaXMucGxhY2Vob2xkZXIgPSBwbGFjZWhvbGRlcjsKICAgIHRoaXMucmVjdXJzaXZlID0gb3B0aW9ucz8ucmVjdXJzaXZlID8/IGZhbHNlOwogICAgdGhpcy5yZWN1cnNpdmUgPSBvcHRpb25zPy5yZWN1cnNpdmUgPz8gdHJ1ZTsKICAgIHRoaXMubWF4RGVwdGggPSBtYXhEZXB0aDsKICB9CgogIC8qKgogICAqIFJlZGFjdHMgc2Vuc2l0aXZlIHByaXZhY3kgZmllbGRzIGZyb20gYW55IGF1ZGl0IHBhY2thZ2Ugb2JqZWN0IG9yIHN0cnVjdHVyZS4KICAgKi8KICBwdWJsaWMgcmVkYWN0PFQgPSBhbnk+KHBhY2thZ2VEYXRhOiBUKTogQXVkaXRQYWNrYWdlUmVkYWN0aW9uUmVzdWx0PFQ+IHsKICAgIGNvbnN0IHJlZGFjdGVkS2V5c1NlZW46IFNldDxzdHJpbmc+ID0gbmV3IFNldCgpOwogICAgbGV0IGNvdW50ID0gMDsKICAgIGxldCB0cnVuY2F0ZWQgPSBmYWxzZTsKICAgIGxldCBjeWNsZURldGVjdGVkID0gZmFsc2U7CiAgICBjb25zdCBzZWVuID0gbmV3IFdlYWtTZXQ8b2JqZWN0PigpOwoKICAgIGNvbnN0IHByb2Nlc3NWYWx1ZSA9ICh2YWw6IGFueSwgZGVwdGg6IG51bWJlcik6IGFueSA9PiB7CiAgICAgIGlmICh2YWwgPT09IG51bGwgfHwgdmFsID09PSB1bmRlZmluZWQpIHJldHVybiB2YWw7CgogICAgICBpZiAoZGVwdGggPiB0aGlzLm1heERlcHRoKSB7CiAgICAgICAgdHJ1bmNhdGVkID0gdHJ1ZTsKICAgICAgICByZXR1cm4gdGhpcy5wbGFjZWhvbGRlcjsKICAgICAgfQoKICAgICAgaWYgKHR5cGVvZiB2YWwgPT09ICJmdW5jdGlvbiIpIHsKICAgICAgICByZXR1cm4gdGhpcy5wbGFjZWhvbGRlcjsKICAgICAgfQoKICAgICAgaWYgKEFycmF5LmlzQXJyYXkodmFsKSkgewogICAgICAgIGlmICghdGhpcy5yZWN1cnNpdmUpIHJldHVybiB2YWw7CiAgICAgICAgaWYgKHNlZW4uaGFzKHZhbCkpIHsKICAgICAgICAgIGN5Y2xlRGV0ZWN0ZWQgPSB0cnVlOwogICAgICAgICAgcmV0dXJuIHRoaXMucGxhY2Vob2xkZXI7CiAgICAgICAgfQogICAgICAgIHNlZW4uYWRkKHZhbCk7CiAgICAgICAgY29uc3QgcmVzdWx0ID0gdmFsLm1hcCgoaXRlbSkgPT4gcHJvY2Vzc1ZhbHVlKGl0ZW0sIGRlcHRoICsgMSkpOwogICAgICAgIHNlZW4uZGVsZXRlKHZhbCk7CiAgICAgICAgcmV0dXJuIHJlc3VsdDsKICAgICAgfQoKICAgICAgaWYgKHR5cGVvZiB2YWwgPT09ICJvYmplY3QiICYmICEodmFsIGluc3RhbmNlb2YgRGF0ZSkgJiYgISh2YWwgaW5zdGFuY2VvZiBSZWdFeHApKSB7CiAgICAgICAgaWYgKHNlZW4uaGFzKHZhbCkpIHsKICAgICAgICAgIGN5Y2xlRGV0ZWN0ZWQgPSB0cnVlOwogICAgICAgICAgcmV0dXJuIHRoaXMucGxhY2Vob2xkZXI7CiAgICAgICAgfQogICAgICAgIHNlZW4uYWRkKHZhbCk7CiAgICAgICAgY29uc3QgY29weTogUmVjb3JkPHN0cmluZywgYW55PiA9IHt9OwogICAgICAgIGZvciAoY29uc3QgW2tleSwgaXRlbVZhbF0gb2YgT2JqZWN0LmVudHJpZXModmFsKSkgewogICAgICAgICAgaWYgKHRoaXMuc2Vuc2l0aXZlS2V5cy5oYXMoa2V5LnRvTG93ZXJDYXNlKCkpKSB7CiAgICAgICAgICAgIGNvcHlba2V5XSA9IHRoaXMucGxhY2Vob2xkZXI7CiAgICAgICAgICAgIHJlZGFjdGVkS2V5c1NlZW4uYWRkKGtleSk7CiAgICAgICAgICAgIGNvdW50Kys7CiAgICAgICAgICB9IGVsc2UgaWYgKHRoaXMucmVjdXJzaXZlKSB7CiAgICAgICAgICAgIGNvcHlba2V5XSA9IHByb2Nlc3NWYWx1ZShpdGVtVmFsLCBkZXB0aCArIDEpOwogICAgICAgICAgfSBlbHNlIHsKICAgICAgICAgICAgY29weVtrZXldID0gaXRlbVZhbDsKICAgICAgICAgIH0KICAgICAgICB9CiAgICAgICAgc2Vlbi5kZWxldGUodmFsKTsKICAgICAgICByZXR1cm4gY29weTsKICAgICAgfQoKICAgICAgcmV0dXJuIHZhbDsKICAgIH07CgogICAgY29uc3QgcmVkYWN0ZWREYXRhID0gcHJvY2Vzc1ZhbHVlKHBhY2thZ2VEYXRhLCAwKTsKCiAgICByZXR1cm4gewogICAgICByZWRhY3RlZERhdGEsCiAgICAgIHJlZGFjdGVkRmllbGRDb3VudDogY291bnQsCiAgICAgIHJlZGFjdGVkS2V5czogQXJyYXkuZnJvbShyZWRhY3RlZEtleXNTZWVuKSwKICAgICAgdHJ1bmNhdGVkLAogICAgICBjeWNsZURldGVjdGVkLAogICAgfTsKICB9Cn0KCi eightKICogRnVuY3Rpb25hbCBzaG9ydGhhbmQgaGVscGVyIHRvIHJlZGFjdCBhbiBhdWRpdCBwYWNrYWdlIHdpdGggb3B0aW9uYWwgY3VzdG9tIHNldHRpbmdzLgogKi8KZXhwb3J0IGZ1bmN0aW9uIHJlZGFjdEF1ZGl0UGFja2FnZTxUID0gYW55PigKICBwYWNrYWdlRGF0YTogVCwKICBvcHRpb25zPzogUmVkYWN0aW9uTWFza09wdGlvbnMKKTogQXVkaXRQYWNrYWdlUmVkYWN0aW9uUmVzdWx0PFQ+IHsKICBjb25zdCByZWRhY3RvciA9IG5ldyBBdWRpdFBhY2thZ2VSZWRhY3RvcihvcHRpb25zKTsKICByZXR1cm4gcmVkYWN0b3IucmVkYWN0KHBhY2thZ2VEYXRhKTsKfQo=
+/**
+ * Sensitive fields default mask set for audit package redaction.
+ */
+export const DEFAULT_SENSITIVE_KEYS: string[] = [
+  "viewKey",
+  "viewingKey",
+  "privateKey",
+  "secret",
+  "secretKey",
+  "salaryAmount",
+  "ssn",
+  "taxId",
+  "creditCard",
+  "bankaccount",
+];
+
+/**
+ * Additional sensitive keys that are always redacted regardless of options.
+ */
+export const MANDATORY_SENSITIVE_KEYS: string[] = ["privateKey", "secretKey", "viewKey"];
+
+/**
+ * Maximum allowed depth for recursive redaction to prevent stack overflow.
+ */
+export const MAX_REDACTION_DEPTH: number = 50;
+
+export interface RedactionMaskOptions {
+  /** Additional key names to scrub from audit packages. */
+  additionalKeys?: string[];
+  /** Custom replacement placeholder text (default: "[REDACTED]"). */
+  placeholder?: string;
+  /** Whether to redact recursively through nested objects and arrays (default: true). */
+  recursive?: boolean;
+  /** Maximum recursion depth before redaction fails closed (default: 50). */
+  maxDepth?: number;
+  /** Whether to throw on invalid options (non-string keys, etc.). */
+  strict?: boolean;
+}
+
+export interface AuditPackageRedactionResult<T = unknown> {
+  redactedData: T;
+  redactedFieldCount: number;
+  redactedKeys: string[];
+  /** True when redaction hit the depth limit and failed closed. */
+  truncated: boolean;
+  /** True when a cyclic reference was detected and redacted. */
+  cycleDetected: boolean;
+}
+
+export class AuditRedactionError extends Error {
+  public readonly code: string;
+
+  constructor(message: string, code = "AUDIT_REDACTION_ERROR") {
+    super(message);
+    this.name = "AuditRedactionError";
+    this.code = code;
+  }
+}
+
+/**
+ * Helper class for redacting sensitive privacy-preserving fields from audit packages
+ * before they are logged, exported, or rendered in UI interfaces.
+ */
+export class AuditPackageRedactor {
+  private readonly sensitiveKeys: Set<string>;
+  private readonly placeholder: string;
+  private readonly recursive: boolean;
+  private readonly maxDepth: number;
+
+  constructor(options?: RedactionMaskOptions) {
+    const additional = options?.additionalKeys ?? [];
+    if (!Array.isArray(additional)) {
+      throw new AuditRedactionError(
+        "Redaction option 'additionalKeys' must be an array of strings.",
+        "AUDIT_REDACTION_INVALID_OPTIONS"
+      );
+    }
+    for (const key of additional) {
+      if (typeof key !== "string" || key.trim().length === 0) {
+        throw new AuditRedactionError(
+          "Redaction option 'additionalKeys' must contain only non-empty strings.",
+          "AUDIT_REDACTION_INVALID_OPTIONS"
+        );
+      }
+    }
+
+    const placeholder = options?.placeholder ?? "[REDACTED]";
+    if (typeof placeholder !== "string") {
+      throw new AuditRedactionError(
+        "Redaction option 'placeholder' must be a string.",
+        "AUDIT_REDACTION_INVALID_OPTIONS"
+      );
+    }
+
+    const maxDepth = options?.maxDepth ?? MAX_REDACTION_DEPTH;
+    if (!Number.isInteger(maxDepth) || maxDepth < 0) {
+      throw new AuditRedactionError(
+        "Redaction option 'maxDepth' must be a non-negative integer.",
+        "AUDIT_REDACTION_INVALID_OPTIONS"
+      );
+    }
+
+    const keys = [...DEFAULT_SENSITIVE_KEYS, ...MANDATORY_SENSITIVE_KEYS, ...additional];
+    this.sensitiveKeys = new Set(keys.map((k) => k.toLowerCase()));
+    this.placeholder = placeholder;
+    this.recursive = options?.recursive ?? false;
+    this.maxDepth = maxDepth;
+  }
+
+  /**
+   * Redacts sensitive privacy fields from any audit package object or structure.
+   */
+  public redact<T = any>(packageData: T): AuditPackageRedactionResult<T> {
+    const redactedKeysSeen: Set<string> = new Set();
+    let count = 0;
+    let truncated = false;
+    let cycleDetected = false;
+    const seen = new WeakSet<object>();
+
+    const processValue = (val: any, depth: number): any => {
+      if (val === null || val === undefined) return val;
+
+      if (depth > this.maxDepth) {
+        truncated = true;
+        return this.placeholder;
+      }
+
+      if (typeof val === "function") {
+        return this.placeholder;
+      }
+
+      if (Array.isArray(val)) {
+        if (!this.recursive) return val;
+        if (seen.has(val)) {
+          cycleDetected = true;
+          return this.placeholder;
+        }
+        seen.add(val);
+        const result = val.map((item) => processValue(item, depth + 1));
+        seen.delete(val);
+        return result;
+      }
+
+      if (typeof val === "object" && !(val instanceof Date) && !(val instanceof RegExp)) {
+        if (seen.has(val)) {
+          cycleDetected = true;
+          return this.placeholder;
+        }
+        seen.add(val);
+        const copy: Record<string, any> = {};
+        for (const [key, itemVal] of Object.entries(val)) {
+          if (this.sensitiveKeys.has(key.toLowerCase())) {
+            copy[key] = this.placeholder;
+            redactedKeysSeen.add(key);
+            count++;
+          } else if (this.recursive) {
+            copy[key] = processValue(itemVal, depth + 1);
+          } else {
+            copy[key] = itemVal;
+          }
+        }
+        seen.delete(val);
+        return copy;
+      }
+
+      return val;
+    };
+
+    const redactedData = processValue(packageData, 0);
+
+    return {
+      redactedData,
+      redactedFieldCount: count,
+      redactedKeys: Array.from(redactedKeysSeen),
+      truncated,
+      cycleDetected,
+    };
+  }
+}
+
+/**
+ * Functional shorthand helper to redact an audit package with optional custom settings.
+ */
+export function redactAuditPackage<T = any>(
+  packageData: T,
+  options?: RedactionMaskOptions
+): AuditPackageRedactionResult<T> {
+  const redactor = new AuditPackageRedactor(options);
+  return redactor.redact(packageData);
+}

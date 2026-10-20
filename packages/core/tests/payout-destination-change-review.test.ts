@@ -61,10 +61,12 @@ describe("reviewPayoutDestinationChange", () => {
   });
 
   it("flags an account-type change for elevated review", () => {
-    const muxedPayload = Buffer.alloc(40);
-    StrKey.decodeEd25519PublicKey(PROPOSED).copy(muxedPayload);
-    muxedPayload.writeBigUInt64BE(42n, 32);
-    const muxed = StrKey.encodeMed25519PublicKey(muxedPayload);
+    // Built with `Uint8Array`/`DataView` rather than `Buffer` so the test runs
+    // unchanged in the browser (jsdom) environment as well as in Node.
+    const muxedPayload = new Uint8Array(40);
+    muxedPayload.set(StrKey.decodeEd25519PublicKey(PROPOSED));
+    new DataView(muxedPayload.buffer).setBigUint64(32, 42n);
+    const muxed = StrKey.encodeMed25519PublicKey(muxedPayload as unknown as Buffer);
     expect(
       reviewPayoutDestinationChange({
         currentDestination: CURRENT,

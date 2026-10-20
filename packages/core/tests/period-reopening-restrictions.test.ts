@@ -123,8 +123,8 @@ describe("Payroll Period Reopening Restrictions (#707)", () => {
       requesterRole: "INTERN",
     };
 
-    expect(() =>
-      assertPeriodReopeningAllowed(invalidReq, closedPeriod, {}, baseNow)
-    ).toThrow(PeriodReopeningRestrictionError);
+    expect(() => assertPeriodReopeningAllowed(invalidReq, closedPeriod, {}, baseNow)).toThrow(
+      PeriodReopeningRestrictionError
+    );
   });
 });

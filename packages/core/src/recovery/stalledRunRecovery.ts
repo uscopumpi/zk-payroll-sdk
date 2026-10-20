@@ -6,31 +6,31 @@
  */
 
 export type PayrollRunExecutionStatus =
-  | 'INITIALIZING'
-  | 'PENDING'
-  | 'IN_PROGRESS'
-  | 'PAUSED'
-  | 'CONFIRMING'
-  | 'COMPLETED'
-  | 'FAILED'
-  | 'CANCELLED';
+  | "INITIALIZING"
+  | "PENDING"
+  | "IN_PROGRESS"
+  | "PAUSED"
+  | "CONFIRMING"
+  | "COMPLETED"
+  | "FAILED"
+  | "CANCELLED";
 
 export type StalledRunDiagnosisCode =
-  | 'HEALTHY_ACTIVE'
-  | 'ALREADY_TERMINATED'
-  | 'HEARTBEAT_EXPIRED'
-  | 'BATCH_CONFIRMATION_TIMEOUT'
-  | 'PARTIAL_EXECUTION_STALLED'
-  | 'UNPROCESSED_FAILURES'
-  | 'FUNDING_RESERVATION_ORPHANED';
+  | "HEALTHY_ACTIVE"
+  | "ALREADY_TERMINATED"
+  | "HEARTBEAT_EXPIRED"
+  | "BATCH_CONFIRMATION_TIMEOUT"
+  | "PARTIAL_EXECUTION_STALLED"
+  | "UNPROCESSED_FAILURES"
+  | "FUNDING_RESERVATION_ORPHANED";
 
 export type RecoveryStrategy =
-  | 'NO_ACTION_REQUIRED'
-  | 'WAIT_FOR_CONFIRMATION'
-  | 'RESUME_FROM_CHECKPOINT'
-  | 'RETRY_FAILED_BATCHES'
-  | 'REFUND_AND_ABORT'
-  | 'MANUAL_INSPECTION';
+  | "NO_ACTION_REQUIRED"
+  | "WAIT_FOR_CONFIRMATION"
+  | "RESUME_FROM_CHECKPOINT"
+  | "RETRY_FAILED_BATCHES"
+  | "REFUND_AND_ABORT"
+  | "MANUAL_INSPECTION";
 
 export interface StalledPayrollRunState {
   runId: string;
@@ -77,7 +77,7 @@ export function evaluateStalledPayrollRun(
   options: StalledRunDiagnosisOptions = {}
 ): StalledRunRecoveryReport {
   const now = options.currentTime
-    ? typeof options.currentTime === 'number'
+    ? typeof options.currentTime === "number"
       ? options.currentTime
       : new Date(options.currentTime).getTime()
     : Date.now();
@@ -85,9 +85,10 @@ export function evaluateStalledPayrollRun(
   const heartbeatTimeoutMs = options.heartbeatTimeoutMs ?? 120000;
   const confirmationTimeoutMs = options.confirmationTimeoutMs ?? 300000;
 
-  const startedTime = typeof run.startedAt === 'number' ? run.startedAt : new Date(run.startedAt).getTime();
+  const startedTime =
+    typeof run.startedAt === "number" ? run.startedAt : new Date(run.startedAt).getTime();
   const heartbeatTime = run.lastHeartbeatAt
-    ? typeof run.lastHeartbeatAt === 'number'
+    ? typeof run.lastHeartbeatAt === "number"
       ? run.lastHeartbeatAt
       : new Date(run.lastHeartbeatAt).getTime()
     : startedTime;
@@ -96,53 +97,53 @@ export function evaluateStalledPayrollRun(
   const pendingBatches = Math.max(0, run.totalBatches - run.completedBatches - run.failedBatches);
 
   // 1. Terminal states
-  if (run.status === 'COMPLETED' || run.status === 'CANCELLED') {
+  if (run.status === "COMPLETED" || run.status === "CANCELLED") {
     return {
       runId: run.runId,
       isStalled: false,
-      diagnosisCode: 'ALREADY_TERMINATED',
+      diagnosisCode: "ALREADY_TERMINATED",
       diagnosisDetails: `Payroll run is in terminal status "${run.status}".`,
-      recommendedStrategy: 'NO_ACTION_REQUIRED',
+      recommendedStrategy: "NO_ACTION_REQUIRED",
       canAutoResume: false,
       pendingBatches: 0,
-      remediationSteps: ['No remediation needed. Run is already terminated.'],
-      suggestedAction: 'Archive run or review completed audit records.',
+      remediationSteps: ["No remediation needed. Run is already terminated."],
+      suggestedAction: "Archive run or review completed audit records.",
     };
   }
 
   // 2. Actively confirming within confirmation timeout
-  if (run.status === 'CONFIRMING' && timeSinceHeartbeat < confirmationTimeoutMs) {
+  if (run.status === "CONFIRMING" && timeSinceHeartbeat < confirmationTimeoutMs) {
     return {
       runId: run.runId,
       isStalled: false,
-      diagnosisCode: 'HEALTHY_ACTIVE',
-      diagnosisDetails: 'Transaction batch is awaiting ledger confirmation within timeout window.',
-      recommendedStrategy: 'WAIT_FOR_CONFIRMATION',
+      diagnosisCode: "HEALTHY_ACTIVE",
+      diagnosisDetails: "Transaction batch is awaiting ledger confirmation within timeout window.",
+      recommendedStrategy: "WAIT_FOR_CONFIRMATION",
       canAutoResume: false,
       pendingBatches,
       remediationSteps: [
-        'Allow current Soroban transaction envelope to settle.',
-        'Monitor ledger sequence progression via TransactionWatcher.',
+        "Allow current Soroban transaction envelope to settle.",
+        "Monitor ledger sequence progression via TransactionWatcher.",
       ],
-      suggestedAction: 'Wait for ledger confirmation before triggering retry.',
+      suggestedAction: "Wait for ledger confirmation before triggering retry.",
     };
   }
 
   // 3. Batch confirmation timed out
-  if (run.status === 'CONFIRMING' && timeSinceHeartbeat >= confirmationTimeoutMs) {
+  if (run.status === "CONFIRMING" && timeSinceHeartbeat >= confirmationTimeoutMs) {
     return {
       runId: run.runId,
       isStalled: true,
-      diagnosisCode: 'BATCH_CONFIRMATION_TIMEOUT',
+      diagnosisCode: "BATCH_CONFIRMATION_TIMEOUT",
       diagnosisDetails: `Batch confirmation timed out after ${Math.round(timeSinceHeartbeat / 1000)}s without on-chain finality.`,
-      recommendedStrategy: 'RESUME_FROM_CHECKPOINT',
+      recommendedStrategy: "RESUME_FROM_CHECKPOINT",
       canAutoResume: true,
       resumeFromBatchIndex: run.completedBatches,
       pendingBatches,
       remediationSteps: [
         `Query transaction hash on Soroban RPC to confirm status.`,
         `If reverted or dropped, resume execution from batch index ${run.completedBatches}.`,
-        'Verify employee idempotency keys prevent duplicate payouts.',
+        "Verify employee idempotency keys prevent duplicate payouts.",
       ],
       suggestedAction: `Resume execution at batch index ${run.completedBatches}.`,
     };
@@ -153,18 +154,18 @@ export function evaluateStalledPayrollRun(
     return {
       runId: run.runId,
       isStalled: true,
-      diagnosisCode: 'UNPROCESSED_FAILURES',
+      diagnosisCode: "UNPROCESSED_FAILURES",
       diagnosisDetails: `Payroll run has ${run.failedBatches} failed batch(es) and ${run.completedBatches} completed batch(es).`,
-      recommendedStrategy: 'RETRY_FAILED_BATCHES',
+      recommendedStrategy: "RETRY_FAILED_BATCHES",
       canAutoResume: false,
       resumeFromBatchIndex: run.completedBatches,
       pendingBatches,
       remediationSteps: [
-        'Inspect batch failure logs for recipient address or insufficient balance errors.',
-        'Re-simulate failed batch items with updated fee or gas estimates.',
-        'Retry remaining batches using retryFailedBatches().',
+        "Inspect batch failure logs for recipient address or insufficient balance errors.",
+        "Re-simulate failed batch items with updated fee or gas estimates.",
+        "Retry remaining batches using retryFailedBatches().",
       ],
-      suggestedAction: 'Address batch validation failure reasons and trigger targeted retry.',
+      suggestedAction: "Address batch validation failure reasons and trigger targeted retry.",
     };
   }
 
@@ -174,16 +175,16 @@ export function evaluateStalledPayrollRun(
       return {
         runId: run.runId,
         isStalled: true,
-        diagnosisCode: 'PARTIAL_EXECUTION_STALLED',
+        diagnosisCode: "PARTIAL_EXECUTION_STALLED",
         diagnosisDetails: `Execution worker heartbeat expired ${Math.round(timeSinceHeartbeat / 1000)}s ago with ${pendingBatches} pending batches remaining.`,
-        recommendedStrategy: 'RESUME_FROM_CHECKPOINT',
+        recommendedStrategy: "RESUME_FROM_CHECKPOINT",
         canAutoResume: true,
         resumeFromBatchIndex: run.completedBatches,
         pendingBatches,
         remediationSteps: [
           `Resume payroll dispatch from checkpoint index ${run.completedBatches}.`,
-          'Verify that already-settled employee payouts are not duplicated.',
-          'Check worker resource allocation to prevent future heartbeat timeouts.',
+          "Verify that already-settled employee payouts are not duplicated.",
+          "Check worker resource allocation to prevent future heartbeat timeouts.",
         ],
         suggestedAction: `Resume payroll execution from checkpoint batch index ${run.completedBatches}.`,
       };
@@ -193,34 +194,35 @@ export function evaluateStalledPayrollRun(
       return {
         runId: run.runId,
         isStalled: true,
-        diagnosisCode: 'FUNDING_RESERVATION_ORPHANED',
-        diagnosisDetails: 'Run stalled prior to any batch dispatch while treasury reservation remains held.',
-        recommendedStrategy: 'REFUND_AND_ABORT',
+        diagnosisCode: "FUNDING_RESERVATION_ORPHANED",
+        diagnosisDetails:
+          "Run stalled prior to any batch dispatch while treasury reservation remains held.",
+        recommendedStrategy: "REFUND_AND_ABORT",
         canAutoResume: false,
         pendingBatches: run.totalBatches,
         remediationSteps: [
-          'Call releaseTreasuryReservation() to unlock held funds.',
-          'Mark payroll run as CANCELLED in database.',
-          'Notify payroll administrator of cancelled run.',
+          "Call releaseTreasuryReservation() to unlock held funds.",
+          "Mark payroll run as CANCELLED in database.",
+          "Notify payroll administrator of cancelled run.",
         ],
-        suggestedAction: 'Release held treasury reservation and reset run status.',
+        suggestedAction: "Release held treasury reservation and reset run status.",
       };
     }
 
     return {
       runId: run.runId,
       isStalled: true,
-      diagnosisCode: 'HEARTBEAT_EXPIRED',
+      diagnosisCode: "HEARTBEAT_EXPIRED",
       diagnosisDetails: `Execution process lost heartbeat ${Math.round(timeSinceHeartbeat / 1000)}s ago.`,
-      recommendedStrategy: 'RESUME_FROM_CHECKPOINT',
+      recommendedStrategy: "RESUME_FROM_CHECKPOINT",
       canAutoResume: true,
       resumeFromBatchIndex: run.completedBatches,
       pendingBatches,
       remediationSteps: [
-        'Restart payroll worker process.',
+        "Restart payroll worker process.",
         `Resume payroll dispatch from batch index ${run.completedBatches}.`,
       ],
-      suggestedAction: 'Restart worker and resume run.',
+      suggestedAction: "Restart worker and resume run.",
     };
   }
 
@@ -228,12 +230,12 @@ export function evaluateStalledPayrollRun(
   return {
     runId: run.runId,
     isStalled: false,
-    diagnosisCode: 'HEALTHY_ACTIVE',
-    diagnosisDetails: 'Payroll run is actively progressing within normal execution parameters.',
-    recommendedStrategy: 'NO_ACTION_REQUIRED',
+    diagnosisCode: "HEALTHY_ACTIVE",
+    diagnosisDetails: "Payroll run is actively progressing within normal execution parameters.",
+    recommendedStrategy: "NO_ACTION_REQUIRED",
     canAutoResume: false,
     pendingBatches,
-    remediationSteps: ['Continue monitoring progress stream.'],
-    suggestedAction: 'No intervention required.',
+    remediationSteps: ["Continue monitoring progress stream."],
+    suggestedAction: "No intervention required.",
   };
 }

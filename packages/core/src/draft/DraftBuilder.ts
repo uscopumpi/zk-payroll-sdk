@@ -258,9 +258,7 @@ export class DraftBuilder {
   /**
    * Asserts that the draft can be safely locked, throwing DraftLockError if not (#537).
    */
-  assertLockable(
-    options?: import("./draftLockInspection").DraftLockInspectionOptions
-  ): this {
+  assertLockable(options?: import("./draftLockInspection").DraftLockInspectionOptions): this {
     // eslint-disable-next-line @typescript-eslint/no-require-imports
     const { assertDraftLockable } = require("./draftLockInspection");
     assertDraftLockable(this, options);

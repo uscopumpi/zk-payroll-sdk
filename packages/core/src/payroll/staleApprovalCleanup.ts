@@ -30,8 +30,8 @@ function blocked(
 
 /**
  * Determines whether a stale approval can be safely cleaned up.
- * 
- * Clear validation and operational states make payroll safer to run without 
+ *
+ * Clear validation and operational states make payroll safer to run without
  * exposing sensitive employee or salary information.
  */
 export function evaluateStaleApprovalCleanupEligibility(
@@ -54,15 +54,20 @@ export function evaluateStaleApprovalCleanupEligibility(
   }
 
   const status = input.status.trim().toLowerCase();
-  
-  if (status !== "approved" && status !== "pending" && status !== "expired" && status !== "rejected") {
+
+  if (
+    status !== "approved" &&
+    status !== "pending" &&
+    status !== "expired" &&
+    status !== "rejected"
+  ) {
     return blocked(
       "INVALID_STATUS",
       "The approval status is not recognized.",
       "Provide a valid approval status."
     );
   }
-  
+
   if (status === "rejected") {
     return blocked(
       "CLEANUP_NOT_REQUIRED",

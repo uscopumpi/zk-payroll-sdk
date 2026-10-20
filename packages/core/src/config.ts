@@ -471,6 +471,7 @@ export function loadClientConfig(options: LoadClientConfigOptions = {}): ClientC
         networkUrl: "http://127.0.0.1:8000",
         rpcUrl: "http://127.0.0.1:8000",
         network: "localnet",
+        contractId: "",
       }
     : DEFAULT_CONFIG;
 
@@ -494,18 +495,10 @@ export function loadClientConfig(options: LoadClientConfigOptions = {}): ClientC
       (options.offline && options.env === undefined ? undefined : env.STELLAR_NETWORK) ??
       defaults.network,
     contractId:
-      options.contractId ??
-      env.PAYROLL_CONTRACT_ID ??
-      env.CONTRACT_ID ??
-      defaults.contractId,
+      options.contractId ?? env.PAYROLL_CONTRACT_ID ?? env.CONTRACT_ID ?? defaults.contractId,
     contractIds:
-      options.contractIds ??
-      (Object.keys(envContractIds).length ? envContractIds : undefined),
-    adminKey:
-      options.adminKey ??
-      env.SIGNER_SECRET ??
-      env.STELLAR_SECRET_KEY ??
-      env.ADMIN_SECRET,
+      options.contractIds ?? (Object.keys(envContractIds).length ? envContractIds : undefined),
+    adminKey: options.adminKey ?? env.SIGNER_SECRET ?? env.STELLAR_SECRET_KEY ?? env.ADMIN_SECRET,
     proofConfig: options.proofConfig,
     retryPolicy: options.retryPolicy,
     retryBudgets: options.retryBudgets,

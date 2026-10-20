@@ -30,13 +30,12 @@ describe("analyzeSalaryPolicyImpact", () => {
   it("reports funding shortfall when the new total exceeds available funds", () => {
     const report = analyzeSalaryPolicyImpact(
       [{ recipientId: "alice", previousAmount: 100n, newAmount: 500n }],
-      { availableFunds: 200n },
+      { availableFunds: 200n }
     );
 
-    expect(report.exceedsAvailableFunds).toBe(
-true);
+    expect(report.exceedsAvailableFunds).toBe(true);
     expect(() => assertSalaryPolicyImpactIsApplicable(report)).toThrow(
-      SalaryPolicyImpactValidationError,
+      SalaryPolicyImpactValidationError
     );
   });
 
@@ -46,7 +45,7 @@ true);
         { recipientId: "alice", previousAmount: 100n, newAmount: 5n },
         { recipientId: "bob", previousAmount: 100n, newAmount: 10_000n },
       ],
-      { minimumAmount: 10n, maximumAmount: 1_000n },
+      { minimumAmount: 10n, maximumAmount: 1_000n }
     );
 
     expect(report.isValid).toBe(false);
@@ -54,7 +53,7 @@ true);
     expect(report.boundViolations[0].kind).toBe("below_minimum");
     expect(report.boundViolations[1].kind).toBe("above_maximum");
     expect(() => assertSalaryPolicyImpactIsApplicable(report)).toThrow(
-      SalaryPolicyImpactValidationError,
+      SalaryPolicyImpactValidationError
     );
   });
 
@@ -63,21 +62,19 @@ true);
       analyzeSalaryPolicyImpact([
         { recipientId: "alice", previousAmount: 10n, newAmount: 20n },
         { recipientId: "alice", previousAmount: 20n, newAmount: 30n },
-      ]),
+      ])
     ).toThrow(SalaryPolicyImpactValidationError);
   });
 
   it("rejects negative amounts", () => {
     expect(() =>
-      analyzeSalaryPolicyImpact([
-        { recipientId: "alice", previousAmount: -1n, newAmount: 20n },
-      ]),
+      analyzeSalaryPolicyImpact([{ recipientId: "alice", previousAmount: -1n, newAmount: 20n }])
     ).toThrow(SalaryPolicyImpactValidationError);
   });
 
   it("rejects an inverted min/max bound", () => {
     expect(() =>
-      analyzeSalaryPolicyImpact([], { minimumAmount: 100n, maximumAmount: 10n }),
+      analyzeSalaryPolicyImpact([], { minimumAmount: 100n, maximumAmount: 10n })
     ).toThrow(SalaryPolicyImpactValidationError);
   });
 
@@ -113,7 +110,7 @@ describe("deriveSalaryPolicyChangesFromPeriods", () => {
       makePeriod([
         { recipientId: "alice", amount: 150n },
         { recipientId: "carol", amount: 50n },
-      ]),
+      ])
     );
 
     expect(changes).toEqual([
@@ -130,8 +127,8 @@ describe("deriveSalaryPolicyChangesFromPeriods", () => {
           { recipientId: "alice", amount: 10n },
           { recipientId: "alice", amount: 20n },
         ]),
-        makePeriod([]),
-      ),
+        makePeriod([])
+      )
     ).toThrow(SalaryPolicyImpactValidationError);
   });
 });

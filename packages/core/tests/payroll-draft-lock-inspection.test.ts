@@ -59,9 +59,7 @@ describe("Payroll Draft Lock Inspection Helper (#537)", () => {
     });
 
     it("accepts a raw array of PayrollDraftEntry items", () => {
-      const entries = [
-        { recipientId: RECIPIENT_1, amount: "100", asset: "USDC" },
-      ];
+      const entries = [{ recipientId: RECIPIENT_1, amount: "100", asset: "USDC" }];
 
       const result = inspectDraftLock(entries);
       expect(result.canLock).toBe(true);
@@ -83,9 +81,7 @@ describe("Payroll Draft Lock Inspection Helper (#537)", () => {
       expect(result.canLock).toBe(false);
       expect(result.lockState).toBe("invalid");
       expect(result.blockers).toEqual(
-        expect.arrayContaining([
-          expect.objectContaining({ code: "DRAFT_EMPTY" }),
-        ])
+        expect.arrayContaining([expect.objectContaining({ code: "DRAFT_EMPTY" })])
       );
       expect(result.summary).toContain("🛑 BLOCKED");
     });
@@ -101,9 +97,7 @@ describe("Payroll Draft Lock Inspection Helper (#537)", () => {
       expect(result.canLock).toBe(false);
       expect(result.lockState).toBe("locked");
       expect(result.blockers).toEqual(
-        expect.arrayContaining([
-          expect.objectContaining({ code: "DRAFT_ALREADY_LOCKED" }),
-        ])
+        expect.arrayContaining([expect.objectContaining({ code: "DRAFT_ALREADY_LOCKED" })])
       );
       expect(result.summary).toContain("🔒 LOCKED");
     });
@@ -118,9 +112,7 @@ describe("Payroll Draft Lock Inspection Helper (#537)", () => {
       expect(result.canLock).toBe(false);
       expect(result.lockState).toBe("expired");
       expect(result.blockers).toEqual(
-        expect.arrayContaining([
-          expect.objectContaining({ code: "DRAFT_EXPIRED" }),
-        ])
+        expect.arrayContaining([expect.objectContaining({ code: "DRAFT_EXPIRED" })])
       );
       expect(result.summary).toContain("⚠️ EXPIRED");
     });
@@ -136,9 +128,7 @@ describe("Payroll Draft Lock Inspection Helper (#537)", () => {
       expect(result.canLock).toBe(false);
       expect(result.lockState).toBe("expired");
       expect(result.blockers).toEqual(
-        expect.arrayContaining([
-          expect.objectContaining({ code: "DRAFT_EXPIRED" }),
-        ])
+        expect.arrayContaining([expect.objectContaining({ code: "DRAFT_EXPIRED" })])
       );
     });
 
@@ -150,9 +140,7 @@ describe("Payroll Draft Lock Inspection Helper (#537)", () => {
 
       expect(unauthorizedResult.canLock).toBe(false);
       expect(unauthorizedResult.blockers).toEqual(
-        expect.arrayContaining([
-          expect.objectContaining({ code: "UNAUTHORIZED_LOCKER" }),
-        ])
+        expect.arrayContaining([expect.objectContaining({ code: "UNAUTHORIZED_LOCKER" })])
       );
 
       const authorizedResult = inspectDraftLock(validDraft, {
@@ -197,9 +185,7 @@ describe("Payroll Draft Lock Inspection Helper (#537)", () => {
       });
       expect(mismatchResult.canLock).toBe(false);
       expect(mismatchResult.blockers).toEqual(
-        expect.arrayContaining([
-          expect.objectContaining({ code: "CHECKSUM_MISMATCH" }),
-        ])
+        expect.arrayContaining([expect.objectContaining({ code: "CHECKSUM_MISMATCH" })])
       );
     });
   });
@@ -348,8 +334,11 @@ describe("Payroll Draft Lock Inspection Helper (#537)", () => {
 
   describe("DraftBuilder integration", () => {
     it("exposes inspectLock() and assertLockable() directly on DraftBuilder", () => {
-      const builder = new DraftBuilder(undefined, "Q1 Bonus")
-        .add({ recipientId: RECIPIENT_1, amount: "1000", asset: "native" });
+      const builder = new DraftBuilder(undefined, "Q1 Bonus").add({
+        recipientId: RECIPIENT_1,
+        amount: "1000",
+        asset: "native",
+      });
 
       const inspection = builder.inspectLock();
       expect(inspection.canLock).toBe(true);

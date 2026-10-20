@@ -1,4 +1,4 @@
-import { createHash } from 'crypto';
+import { createHash } from "crypto";
 
 /**
  * Audit event sequence verification for ZK Payroll.
@@ -8,13 +8,13 @@ import { createHash } from 'crypto';
  */
 
 export type AuditSequenceErrorCode =
-  | 'INVALID_EVENT_FORMAT'
-  | 'NON_MONOTONIC_SEQUENCE'
-  | 'SEQUENCE_GAP_DETECTED'
-  | 'DUPLICATE_SEQUENCE'
-  | 'CHRONOLOGICAL_INVERSION'
-  | 'HASH_CHAIN_MISMATCH'
-  | 'HASH_DIGEST_CORRUPTED';
+  | "INVALID_EVENT_FORMAT"
+  | "NON_MONOTONIC_SEQUENCE"
+  | "SEQUENCE_GAP_DETECTED"
+  | "DUPLICATE_SEQUENCE"
+  | "CHRONOLOGICAL_INVERSION"
+  | "HASH_CHAIN_MISMATCH"
+  | "HASH_DIGEST_CORRUPTED";
 
 export interface AuditLogEvent {
   id: string;
@@ -64,14 +64,17 @@ export function computeAuditEventHash(event: AuditLogEvent, previousHash?: strin
   const payload = {
     id: event.id,
     sequenceNumber: event.sequenceNumber,
-    timestamp: typeof event.timestamp === 'number' ? event.timestamp : new Date(event.timestamp).toISOString(),
+    timestamp:
+      typeof event.timestamp === "number"
+        ? event.timestamp
+        : new Date(event.timestamp).toISOString(),
     eventType: event.eventType,
     payrollBatchId: event.payrollBatchId || null,
     actor: event.actor || null,
-    previousHash: previousHash || event.previousHash || '',
+    previousHash: previousHash || event.previousHash || "",
     data: event.data || {},
   };
-  return createHash('sha256').update(JSON.stringify(payload)).digest('hex');
+  return createHash("sha256").update(JSON.stringify(payload)).digest("hex");
 }
 
 /**
@@ -105,11 +108,11 @@ export function verifyAuditEventSequence(
     const event = events[i];
 
     // Check basic format
-    if (!event || typeof event.sequenceNumber !== 'number' || !event.id || !event.eventType) {
+    if (!event || typeof event.sequenceNumber !== "number" || !event.id || !event.eventType) {
       violations.push({
         index: i,
         sequenceNumber: event?.sequenceNumber ?? -1,
-        code: 'INVALID_EVENT_FORMAT',
+        code: "INVALID_EVENT_FORMAT",
         message: `Event at index ${i} is missing required fields (id, sequenceNumber, or eventType).`,
       });
       continue;
@@ -117,14 +120,18 @@ export function verifyAuditEventSequence(
 
     const currentSeq = event.sequenceNumber;
     const currentTimestamp =
-      typeof event.timestamp === 'number' ? event.timestamp : new Date(event.timestamp).getTime();
+      typeof event.timestamp === "number" ? event.timestamp : new Date(event.timestamp).getTime();
 
     // Check sequence numbering
-    if (i === 0 && options.expectedStartSequence !== undefined && currentSeq !== options.expectedStartSequence) {
+    if (
+      i === 0 &&
+      options.expectedStartSequence !== undefined &&
+      currentSeq !== options.expectedStartSequence
+    ) {
       violations.push({
         index: i,
         sequenceNumber: currentSeq,
-        code: 'NON_MONOTONIC_SEQUENCE',
+        code: "NON_MONOTONIC_SEQUENCE",
         message: `Initial event has sequence ${currentSeq}, expected ${options.expectedStartSequence}.`,
         expected: options.expectedStartSequence,
         actual: currentSeq,
@@ -136,7 +143,7 @@ export function verifyAuditEventSequence(
         violations.push({
           index: i,
           sequenceNumber: currentSeq,
-          code: 'DUPLICATE_SEQUENCE',
+          code: "DUPLICATE_SEQUENCE",
           message: `Duplicate sequence number ${currentSeq} detected at indices ${i - 1} and ${i}.`,
           expected: prevSeq + 1,
           actual: currentSeq,
@@ -145,7 +152,7 @@ export function verifyAuditEventSequence(
         violations.push({
           index: i,
           sequenceNumber: currentSeq,
-          code: 'NON_MONOTONIC_SEQUENCE',
+          code: "NON_MONOTONIC_SEQUENCE",
           message: `Sequence decreased from ${prevSeq} to ${currentSeq} at index ${i}.`,
           expected: prevSeq + 1,
           actual: currentSeq,
@@ -154,7 +161,7 @@ export function verifyAuditEventSequence(
         violations.push({
           index: i,
           sequenceNumber: currentSeq,
-          code: 'SEQUENCE_GAP_DETECTED',
+          code: "SEQUENCE_GAP_DETECTED",
           message: `Sequence gap detected: expected ${prevSeq + 1}, found ${currentSeq}.`,
           expected: prevSeq + 1,
           actual: currentSeq,
@@ -167,14 +174,14 @@ export function verifyAuditEventSequence(
       violations.push({
         index: i,
         sequenceNumber: currentSeq,
-        code: 'INVALID_EVENT_FORMAT',
+        code: "INVALID_EVENT_FORMAT",
         message: `Event at index ${i} has an invalid timestamp: ${event.timestamp}`,
       });
     } else if (i > 0 && currentTimestamp < previousTimestamp - maxClockSkewMs) {
       violations.push({
         index: i,
         sequenceNumber: currentSeq,
-        code: 'CHRONOLOGICAL_INVERSION',
+        code: "CHRONOLOGICAL_INVERSION",
         message: `Timestamp for event ${currentSeq} (${currentTimestamp}) precedes previous timestamp (${previousTimestamp}) beyond allowed skew of ${maxClockSkewMs}ms.`,
         expected: `>= ${previousTimestamp - maxClockSkewMs}`,
         actual: currentTimestamp,
@@ -187,7 +194,7 @@ export function verifyAuditEventSequence(
         violations.push({
           index: i,
           sequenceNumber: currentSeq,
-          code: 'HASH_CHAIN_MISMATCH',
+          code: "HASH_CHAIN_MISMATCH",
           message: `Hash chain broken at sequence ${currentSeq}. Expected previousHash "${previousHash}", but got "${event.previousHash}".`,
           expected: previousHash,
           actual: event.previousHash,
@@ -202,7 +209,7 @@ export function verifyAuditEventSequence(
         violations.push({
           index: i,
           sequenceNumber: currentSeq,
-          code: 'HASH_DIGEST_CORRUPTED',
+          code: "HASH_DIGEST_CORRUPTED",
           message: `Event ${currentSeq} hash digest does not match computed payload hash.`,
           expected: computed,
           actual: event.hash,

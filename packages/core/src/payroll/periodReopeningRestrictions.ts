@@ -15,12 +15,7 @@
  * Recognized lifecycle states of a payroll accounting period.
  */
 export type PayrollPeriodLifecycleState =
-  | "draft"
-  | "open"
-  | "closed"
-  | "finalized"
-  | "reopened"
-  | "audited";
+  "draft" | "open" | "closed" | "finalized" | "reopened" | "audited";
 
 /**
  * Valid business reasons permitted to justify a period reopening.
@@ -174,7 +169,8 @@ export function validatePeriodReopening(
       allowed: false,
       periodId: request?.periodId ?? "unknown",
       denialCode: "INVALID_REQUEST",
-      reason: "Missing required fields in reopening request (periodId, requester, or requesterRole).",
+      reason:
+        "Missing required fields in reopening request (periodId, requester, or requesterRole).",
       warnings: [],
     };
   }
@@ -191,9 +187,11 @@ export function validatePeriodReopening(
 
   const warnings: string[] = [];
   const evalTime = request.requestedAtMs ?? nowMs;
-  const authorizedRoles = (options.authorizedRoles ?? DEFAULT_AUTH_ROLES).map((r) => r.toUpperCase());
-  const authorizedApproverRoles = (options.authorizedApproverRoles ?? DEFAULT_APPROVER_ROLES).map((r) =>
+  const authorizedRoles = (options.authorizedRoles ?? DEFAULT_AUTH_ROLES).map((r) =>
     r.toUpperCase()
+  );
+  const authorizedApproverRoles = (options.authorizedApproverRoles ?? DEFAULT_APPROVER_ROLES).map(
+    (r) => r.toUpperCase()
   );
   const requireDualControl = options.requireDualControl ?? true;
   const maxReopens = period.maxAllowedReopens ?? options.maxReopenCount ?? DEFAULT_MAX_REOPENS;
@@ -297,7 +295,8 @@ export function validatePeriodReopening(
         allowed: false,
         periodId: period.periodId,
         denialCode: "SELF_APPROVAL_DISALLOWED",
-        reason: "Self-approval is prohibited under dual-control policy: requester and approver must be distinct identities.",
+        reason:
+          "Self-approval is prohibited under dual-control policy: requester and approver must be distinct identities.",
         warnings,
       };
     }
@@ -317,7 +316,9 @@ export function validatePeriodReopening(
   }
 
   if (period.reopenCount > 0) {
-    warnings.push(`This is reopening attempt #${period.reopenCount + 1} for period ${period.periodId}.`);
+    warnings.push(
+      `This is reopening attempt #${period.reopenCount + 1} for period ${period.periodId}.`
+    );
   }
 
   return {

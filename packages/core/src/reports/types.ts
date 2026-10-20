@@ -157,6 +157,13 @@ export const createMultiPeriodMixedLifecycleInput = (
         unexpected: 0,
       },
       isFullyReconciled: true,
+      totalAmountCheck: {
+        expectedTotal: 100000n,
+        observedTotal: 100000n,
+        isMatching: true,
+        difference: 0n,
+        reason: "Expected and observed totals agree",
+      },
       generatedAt: now,
     },
     isCloseable: false,

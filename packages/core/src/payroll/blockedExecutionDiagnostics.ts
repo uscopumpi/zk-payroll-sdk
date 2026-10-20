@@ -65,7 +65,15 @@ export type BlockedExecutionReasonCode =
 export type BlockerSeverity = "blocker" | "warning" | "info";
 
 export type BlockerCategory =
-  "treasury" | "proof" | "contract" | "policy" | "approval" | "recipient" | "auth" | "initiator" | "retry";
+  | "treasury"
+  | "proof"
+  | "contract"
+  | "policy"
+  | "approval"
+  | "recipient"
+  | "auth"
+  | "initiator"
+  | "retry";
 
 export const BLOCKER_CATEGORIES: readonly BlockerCategory[] = Object.freeze([
   "treasury",
@@ -256,12 +264,17 @@ export function diagnoseBlockedExecution(input: BlockedExecutionInput): BlockedE
   }
 
   if (input.initiatorAddress !== undefined || input.initiatorRoles !== undefined) {
-    const requiredRoles = input.requiredInitiatorRoles ?? ["BATCH_CREATOR", "PAYROLL_ADMIN", "EMPLOYER"];
-    const callerRoles = (input.initiatorRoles ?? []).map((role) => String(role).trim().toUpperCase());
+    const requiredRoles = input.requiredInitiatorRoles ?? [
+      "BATCH_CREATOR",
+      "PAYROLL_ADMIN",
+      "EMPLOYER",
+    ];
+    const callerRoles = (input.initiatorRoles ?? []).map((role) =>
+      String(role).trim().toUpperCase()
+    );
     const normalizedRequired = requiredRoles.map((role) => String(role).trim().toUpperCase());
     const isAuthorized =
-      input.isInitiatorAuthorized ??
-      callerRoles.some((role) => normalizedRequired.includes(role));
+      input.isInitiatorAuthorized ?? callerRoles.some((role) => normalizedRequired.includes(role));
 
     if (!isAuthorized) {
       diagnostics.push({
@@ -787,7 +800,8 @@ export function diagnoseBlockedExecution(input: BlockedExecutionInput): BlockedE
     input.isInitiatorAuthorized ??
     (input.initiatorRoles ?? []).some((role) =>
       (input.requiredInitiatorRoles ?? ["BATCH_CREATOR", "PAYROLL_ADMIN", "EMPLOYER"]).some(
-        (requiredRole) => String(requiredRole).trim().toUpperCase() === String(role).trim().toUpperCase()
+        (requiredRole) =>
+          String(requiredRole).trim().toUpperCase() === String(role).trim().toUpperCase()
       )
     );
 
@@ -813,7 +827,10 @@ export function diagnoseBlockedExecution(input: BlockedExecutionInput): BlockedE
           "Ensure the initiator has the correct Stellar roles (e.g., payroll creator, admin) and re-attempt execution.",
       },
       metadata: {
-        requiredRoles: (input.requiredInitiatorRoles ?? ["BATCH_CREATOR", "PAYROLL_ADMIN", "EMPLOYER"]).join(",") || "none",
+        requiredRoles:
+          (input.requiredInitiatorRoles ?? ["BATCH_CREATOR", "PAYROLL_ADMIN", "EMPLOYER"]).join(
+            ","
+          ) || "none",
         currentRoles: (input.initiatorRoles ?? []).join(",") || "none",
       },
     });
@@ -867,9 +884,7 @@ export function diagnoseBlockedExecution(input: BlockedExecutionInput): BlockedE
     categories,
     summary,
     evaluatedAt: new Date().toISOString(),
-    retry: input.retry
-      ? buildFailedPayoutRetryDiagnostics(input.retry, diagnostics)
-      : undefined,
+    retry: input.retry ? buildFailedPayoutRetryDiagnostics(input.retry, diagnostics) : undefined,
   };
 }
 
@@ -891,8 +906,7 @@ export function buildFailedPayoutRetryDiagnostics(
   const attemptsRemaining = Math.max(0, maxAttempts - attemptCount);
   const failureClass: RetryFailureClass = retry.failureClass ?? "unknown";
   const isExhausted = attemptsRemaining === 0;
-  const isRetryable =
-    retry.isRetryable ?? (failureClass === "transient" && !isExhausted);
+  const isRetryable = retry.isRetryable ?? (failureClass === "transient" && !isExhausted);
 
   const lastAttemptAt = retry.lastAttemptAt
     ? new Date(retry.lastAttemptAt).toISOString()
@@ -987,8 +1001,7 @@ export function buildFailedPayoutRetryDiagnostics(
       remediation: {
         label: "Review Failure",
         action: "custom",
-        suggestedAction:
-          "Inspect the failure details and decide whether a retry is appropriate.",
+        suggestedAction: "Inspect the failure details and decide whether a retry is appropriate.",
       },
       metadata: baseMetadata,
     });

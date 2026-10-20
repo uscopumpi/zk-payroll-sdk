@@ -63,14 +63,14 @@ describe("detectDuplicatePayment", () => {
 
   it("rejects a non-array argument", () => {
     expect(() => detectDuplicatePayment("nope" as unknown as PaymentInstructionLike[])).toThrow(
-      TypeError,
+      TypeError
     );
   });
 
   it("reports the offending index for an invalid instruction", () => {
-    expect(() =>
-      detectDuplicatePayment([instruction(), { recipient: "", amount: "1" }]),
-    ).toThrow(/index 1/);
+    expect(() => detectDuplicatePayment([instruction(), { recipient: "", amount: "1" }])).toThrow(
+      /index 1/
+    );
   });
 });
 
@@ -120,14 +120,14 @@ describe("fingerprintPaymentInstruction", () => {
   });
 
   it("rejects an instruction without a recipient", () => {
-    expect(() =>
-      fingerprintPaymentInstruction({ recipient: "", amount: "100" }),
-    ).toThrow(TypeError);
+    expect(() => fingerprintPaymentInstruction({ recipient: "", amount: "100" })).toThrow(
+      TypeError
+    );
   });
 
   it("rejects an instruction without an amount", () => {
     expect(() =>
-      fingerprintPaymentInstruction({ recipient: RECIPIENT, amount: undefined as never }),
+      fingerprintPaymentInstruction({ recipient: RECIPIENT, amount: undefined as never })
     ).toThrow(TypeError);
   });
 

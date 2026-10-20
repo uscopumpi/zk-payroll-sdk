@@ -74,12 +74,12 @@ export function enforceRetentionSafeguards(
   options: AuditReceiptSerializeOptions = {}
 ): void {
   const maxSizeBytes = options.maxSizeBytes ?? DEFAULT_MAX_SIZE_BYTES;
-  if (!number.isFinite(maxSizeBytes) || maxSizeBytes <= 0) {
+  if (!Number.isFinite(maxSizeBytes) || maxSizeBytes <= 0) {
     throw new Error(`Invalid maxSizeBytes option: ${maxSizeBytes}`);
   }
 
   const maxAgeDays = options.maxAgeDays ?? DEFAULT_MAX_AGE_DAYS;
-  if (!number.isFinite(maxAgeDays) || maxAgeDays <= 0) {
+  if (!Number.isFinite(maxAgeDays) || maxAgeDays <= 0) {
     throw new Error(`Invalid maxAgeDays option: ${maxAgeDays}`);
   }
 

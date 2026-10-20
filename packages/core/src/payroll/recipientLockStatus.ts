@@ -154,6 +154,23 @@ export interface RecipientLockError {
 }
 
 /**
+ * Builds a real `Error` instance that also carries the structured
+ * `RecipientLockError` fields, so callers can branch on `error.code` while
+ * the thrown value still behaves like a standard error.
+ */
+function createRecipientLockError(
+  code: RecipientLockErrorCode,
+  message: string,
+  timestamp: number
+): Error & RecipientLockError {
+  const error = new Error(message) as Error & RecipientLockError;
+  error.name = "RecipientLockError";
+  error.code = code;
+  error.timestamp = timestamp;
+  return error;
+}
+
+/**
  * Validation result for recipient lock status checks.
  */
 export type RecipientLockValidationResult =
@@ -219,7 +236,8 @@ export function createMockRecipientLockStatus(
   overrides: Partial<RecipientLockStatus> = {}
 ): RecipientLockStatus {
   const now = Date.now();
-  const recipient = overrides.recipient ?? "GA2C5RFPE6GCKMY3Z4DC6NOURMDRYZ3UMDVQ4N5ACFBPQ4E3Y3376E67";
+  const recipient =
+    overrides.recipient ?? "GA2C5RFPE6GCKMY3Z4DC6NOURMDRYZ3UMDVQ4N5ACFBPQ4E3Y3376E67";
   const isLocked = overrides.isLocked ?? true;
   const payrollId = overrides.payrollId ?? (isLocked ? "payroll-run-2024-01" : undefined);
   const lockedBy = overrides.lockedBy ?? (isLocked ? "GBBD...PABC" : undefined);
@@ -274,7 +292,8 @@ export function normalizeRecipientLockStatus(
       canReceivePayout: !isLocked,
       lockReason: isLocked ? "active_payroll_execution" : "none",
       payrollId: isLocked ? fallbackPayrollId : undefined,
-      redactedPayrollId: isLocked && fallbackPayrollId ? maskPayrollIdentifier(fallbackPayrollId) : undefined,
+      redactedPayrollId:
+        isLocked && fallbackPayrollId ? maskPayrollIdentifier(fallbackPayrollId) : undefined,
       lockedAt: isLocked ? Date.now() : 0,
     };
   }
@@ -292,7 +311,8 @@ export function normalizeRecipientLockStatus(
 
   const isLocked = entries.is_locked ? scValToBool(entries.is_locked) : false;
   const rawRecipient = scValToString(entries.recipient) || cleanRecipient;
-  const rawPayrollId = scValToString(entries.payroll_id) || (isLocked ? fallbackPayrollId : undefined);
+  const rawPayrollId =
+    scValToString(entries.payroll_id) || (isLocked ? fallbackPayrollId : undefined);
   const rawLockedBy = scValToString(entries.locked_by);
   const rawReason = scValToString(entries.lock_reason);
   const lockedAtSeconds = scValToBigInt(entries.locked_at);
@@ -317,7 +337,9 @@ export function normalizeRecipientLockStatus(
 
   return {
     recipient: resolvedRecipient,
-    redactedRecipient: shouldRedact ? maskRecipientIdentifier(resolvedRecipient) : resolvedRecipient,
+    redactedRecipient: shouldRedact
+      ? maskRecipientIdentifier(resolvedRecipient)
+      : resolvedRecipient,
     isLocked,
     canReceivePayout: !isLocked,
     lockReason,
@@ -350,11 +372,11 @@ export async function fetchRecipientLockStatus(
   options: FetchRecipientLockStatusOptions
 ): Promise<RecipientLockStatus> {
   if (!recipient || recipient.trim().length === 0) {
-    throw {
-      code: "INVALID_RECIPIENT",
-      message: "Recipient address must not be empty.",
-      timestamp: Date.now(),
-    } as RecipientLockError;
+    throw createRecipientLockError(
+      "INVALID_RECIPIENT",
+      "Recipient address must not be empty.",
+      Date.now()
+    );
   }
 
   let employerScVal: xdr.ScVal;
@@ -425,11 +447,11 @@ export function evaluateRecipientLockStatus(
   options: RecipientLockReadOptions = {}
 ): RecipientLockStatus {
   if (!recipient || recipient.trim().length === 0) {
-    throw {
-      code: "INVALID_RECIPIENT",
-      message: "Recipient identifier must not be empty.",
-      timestamp: options.now ?? Date.now(),
-    } as RecipientLockError;
+    throw createRecipientLockError(
+      "INVALID_RECIPIENT",
+      "Recipient identifier must not be empty.",
+      options.now ?? Date.now()
+    );
   }
 
   const cleanRecipient = recipient.trim();
@@ -486,7 +508,9 @@ export function evaluateRecipientLockStatus(
         lockedAt,
         unlockAt: execution.unlockAt,
         lockedBy: execution.lockedBy,
-        redactedLockedBy: execution.lockedBy ? maskRecipientIdentifier(execution.lockedBy) : undefined,
+        redactedLockedBy: execution.lockedBy
+          ? maskRecipientIdentifier(execution.lockedBy)
+          : undefined,
         fetchedAt: now,
       };
     }
@@ -603,7 +627,10 @@ export function canRecipientReceivePayout(
   statusOrRecipient: RecipientLockStatus | { isLocked: boolean; canReceivePayout?: boolean }
 ): boolean {
   if (!statusOrRecipient) return false;
-  if ("canReceivePayout" in statusOrRecipient && typeof statusOrRecipient.canReceivePayout === "boolean") {
+  if (
+    "canReceivePayout" in statusOrRecipient &&
+    typeof statusOrRecipient.canReceivePayout === "boolean"
+  ) {
     return statusOrRecipient.canReceivePayout;
   }
   return !statusOrRecipient.isLocked;
@@ -623,7 +650,9 @@ export function formatRecipientLockStatus(status: RecipientLockStatus): string {
     return `Recipient ${displayRecipient}: 🔓 UNLOCKED (available for payout)`;
   }
 
-  const displayPayroll = status.redactedPayrollId || (status.payrollId ? maskPayrollIdentifier(status.payrollId) : undefined);
+  const displayPayroll =
+    status.redactedPayrollId ||
+    (status.payrollId ? maskPayrollIdentifier(status.payrollId) : undefined);
   const payrollClause = displayPayroll ? ` in run ${displayPayroll}` : "";
   const timeClause = status.lockedAt > 0 ? ` since ${new Date(status.lockedAt).toISOString()}` : "";
   const lockedByClause = status.redactedLockedBy ? ` by ${status.redactedLockedBy}` : "";

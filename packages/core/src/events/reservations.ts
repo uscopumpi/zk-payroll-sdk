@@ -117,10 +117,9 @@ export function validateTreasuryReserveRelease(
   event?: RawContractEvent
 ): void {
   if (!assets || assets.length === 0) {
-    throw new ReservationEventParsingError(
-      "Treasury reserve release requires at least one asset",
-      { event }
-    );
+    throw new ReservationEventParsingError("Treasury reserve release requires at least one asset", {
+      event,
+    });
   }
 
   const seen = new Set<string>();

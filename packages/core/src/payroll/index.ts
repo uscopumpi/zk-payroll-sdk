@@ -25,7 +25,7 @@ export * from "./paymentInstructionDuplicateDetector";
 export * from "./periodLabel";
 export * from "./salaryPolicyImpact";
 export * from "./blockedExecutionDiagnostics";
-export * from "./treasuryReserveReleaseValidation";
+export * from "./treasuryReserveReleaseValidator";
 export * from "./payloadSchema";
 export * from "./executionReferenceCollisionGuard";
 export * from "./payrollApprovalQuorumValidator";
